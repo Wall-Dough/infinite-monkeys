@@ -18,7 +18,7 @@ var are_hungry = false;
 var are_hangry = false;
 
 function update_stats() {
-	document.getElementById("characters").innerHTML = characters;
+	document.getElementById("characters").innerHTML = Math.floor(characters);
 	document.getElementById("money").innerHTML = money;
 	document.getElementById("bananas").innerHTML = bananas;
 	document.getElementById("monkeys").innerHTML = monkeys;
@@ -26,25 +26,25 @@ function update_stats() {
 	document.getElementById("angry").innerHTML = angry_monkeys;
 	document.getElementById("hangry").innerHTML = hangry_monkeys;
 	if ((!are_hungry) && (monkeys > 0)) {
-		document.getElementById("stamina").innerHTML = stamina;
+		document.getElementById("stamina").innerHTML = Math.floor(stamina);
 	}
 	else {
 		document.getElementById("stamina").innerHTML = "--";
 	}
 	if ((!are_hangry) && (angry_monkeys > 0)) {
-		document.getElementById("angry-stamina").innerHTML = angry_stamina;
+		document.getElementById("angry-stamina").innerHTML = Math.floor(angry_stamina);
 	}
 	else {
 		document.getElementById("angry-stamina").innerHTML = "--";
 	}
 	if (are_hungry) {
-		document.getElementById("patience").innerHTML = patience;
+		document.getElementById("patience").innerHTML = Math.floor(patience);
 	}
 	else {
 		document.getElementById("patience").innerHTML = "--";
 	}
 	if (are_hangry) {
-		document.getElementById("angry-patience").innerHTML = angry_patience;
+		document.getElementById("angry-patience").innerHTML = Math.floor(angry_patience);
 	}
 	else {
 		document.getElementById("angry-patience").innerHTML = "--";
@@ -105,6 +105,7 @@ function monkey_metabolism() {
 	var total_normal_monkeys = monkeys + hungry_monkeys;
 	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
 	var total_monkeys = total_normal_monkeys + total_angry_monkeys;
+	characters += (monkeys + angry_monkeys) * (update_speed / 2);
 	if (total_normal_monkeys < 1) {
 		stamina = stamina_max;
 		patience = patience_max;
