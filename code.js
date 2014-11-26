@@ -76,7 +76,7 @@ function buy_banana() {
 }
 
 function feed_monkey() {
-	if (banana < 1) {
+	if (bananas < 1) {
 		return;
 	}
 	if (hangry_monkeys > 0) {
@@ -133,6 +133,11 @@ function monkey_metabolism() {
 		if (patience > 0) {
 			patience -= update_speed;
 		}
+		if (hungry_monkeys <= 0) {
+			are_hungry = false;
+			stamina = stamina_max;
+			patience = patience_max;
+		}
 		if (patience <= 0) {
 			are_hungry = false;
 			stamina = stamina_max;
@@ -158,6 +163,11 @@ function monkey_metabolism() {
 		}
 		if (angry_patience > 0) {
 			angry_patience -= update_speed;
+		}
+		if (hangry_monkeys <= 0) {
+			are_hangry = false;
+			angry_stamina = stamina_max / 2;
+			angry_patience = patience_max / 2;
 		}
 		if (angry_patience <= 0) {
 			are_hangry = false;
