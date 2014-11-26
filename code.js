@@ -9,6 +9,7 @@ var character_worth = 0.25;
 var banana_cost = 0.19;
 var stamina_max = 120;
 var stamina = stamina_max;
+var type_rate = 2 / 3;
 var angry_stamina = stamina / 2;
 var patience_max = 30;
 var patience = patience_max;
@@ -118,7 +119,7 @@ function monkey_metabolism() {
 	var total_normal_monkeys = monkeys + hungry_monkeys;
 	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
 	var total_monkeys = total_normal_monkeys + total_angry_monkeys;
-	characters += (monkeys + angry_monkeys) * (update_speed / 2);
+	characters += (monkeys + angry_monkeys) * (update_speed * type_rate);
 	if (total_normal_monkeys < 1) {
 		stamina = stamina_max;
 		patience = patience_max;
