@@ -19,7 +19,7 @@ var are_hangry = false;
 
 function update_stats() {
 	document.getElementById("characters").innerHTML = Math.floor(characters);
-	document.getElementById("money").innerHTML = money;
+	document.getElementById("money").innerHTML = money.toFixed(2);
 	document.getElementById("bananas").innerHTML = bananas;
 	document.getElementById("monkeys").innerHTML = monkeys;
 	document.getElementById("hungry").innerHTML = hungry_monkeys;
