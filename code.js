@@ -163,7 +163,7 @@ function monkey_metabolism() {
 					angry_monkeys += hungry_monkeys;
 				}
 				else {
-					angry_monkeys += hungry_monkeys;
+					angry_monkeys += bananas;
 					bananas = 0;
 				}
 				hungry_monkeys = 0;
