@@ -180,4 +180,7 @@ function monkey_metabolism() {
 	update_stats();
 }
 
-var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+window.onload = function () {
+	document.getElementById("banana-price").innerHTML = banana_cost.toFixed(2);
+	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+}
