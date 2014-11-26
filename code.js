@@ -81,14 +81,14 @@ function add_to_stream(num_chars) {
 }
 
 function type_character() {
-	document.getElementById("key").setAttribute("src", "key_down.jpg");
+	document.getElementById("key").setAttribute("src", "key_down.png");
 	characters++;
 	add_to_stream(1);
 	update_stats();
 }
 
 function key_up() {
-	document.getElementById("key").setAttribute("src", "key_up.jpg");
+	document.getElementById("key").setAttribute("src", "key_up.png");
 }
 
 function publish() {
