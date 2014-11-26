@@ -31,7 +31,7 @@ function update_stats() {
 	else {
 		document.getElementById("stamina").innerHTML = "--";
 	}
-	if ((!are_hangry)) && (angry_monkeys > 0)) {
+	if ((!are_hangry) && (angry_monkeys > 0)) {
 		document.getElementById("angry-stamina").innerHTML = angry_stamina;
 	}
 	else {
