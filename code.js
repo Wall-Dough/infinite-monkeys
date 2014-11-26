@@ -196,5 +196,7 @@ function monkey_metabolism() {
 
 window.onload = function () {
 	document.getElementById("banana-price").innerHTML = banana_cost.toFixed(2);
+	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
+	document.getElementById("type-rate").innerHTML = type_rate.toFixed(2);
 	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
 }
