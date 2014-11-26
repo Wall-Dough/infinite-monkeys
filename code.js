@@ -57,16 +57,32 @@ function update_stats() {
 	}
 }
 
-function type_character() {
-	characters++;
+function random_char() {
 	var char = char_list[Math.floor(Math.random() * char_list.length)];
 	if (Math.random() > 0.5) {
 		char = char.toUpperCase();
 	}
-	stream += char;
+	return char;
+}
+
+function add_to_stream(num_chars) {
+	if (num_chars < 1) {
+		return;
+	}
+	if (num_chars >= stream_max) {
+		num_chars = stream_max;
+	}
+	for (var i = 0; i < num_chars; i++) {
+		stream += random_char();
+	}
 	if (stream.length > stream_max) {
 		stream = stream.substring(stream.length - stream_max);
 	}
+}
+
+function type_character() {
+	characters++;
+	add_to_stream(1);
 	update_stats();
 }
 
@@ -76,6 +92,7 @@ function publish() {
 		return;
 	}
 	characters -= Math.floor(earned) / character_worth;
+	stream = stream.substring(stream.length - characters);
 	money += earned / 100;
 	update_stats();
 }
@@ -119,7 +136,9 @@ function monkey_metabolism() {
 	var total_normal_monkeys = monkeys + hungry_monkeys;
 	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
 	var total_monkeys = total_normal_monkeys + total_angry_monkeys;
+	var char_previous = Math.floor(characters);
 	characters += (monkeys + angry_monkeys) * (update_speed * type_rate);
+	add_to_stream(Math.floor(characters) - char_previous);
 	if (total_normal_monkeys < 1) {
 		stamina = stamina_max;
 		patience = patience_max;
