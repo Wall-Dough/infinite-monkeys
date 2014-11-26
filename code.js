@@ -58,7 +58,7 @@ function update_stats() {
 
 function type_character() {
 	characters++;
-	char = char_list[Math.random() * char_list.length];
+	var char = char_list[Math.random() * char_list.length];
 	if (Math.random() > 0.5) {
 		char = char.toUpperCase();
 	}
