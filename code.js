@@ -16,9 +16,14 @@ var angry_patience = patience_max / 2;
 var update_speed = 0.5;
 var are_hungry = false;
 var are_hangry = false;
+var added_chars = 0;
+var stream = "";
+var stream_max = 50;
+var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 
 function update_stats() {
 	document.getElementById("characters").innerHTML = Math.floor(characters);
+	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money").innerHTML = money.toFixed(2);
 	document.getElementById("bananas").innerHTML = bananas;
 	document.getElementById("monkeys").innerHTML = monkeys;
@@ -53,6 +58,14 @@ function update_stats() {
 
 function type_character() {
 	characters++;
+	char = char_list[Math.random() * char_list.length];
+	if (Math.random() > 0.5) {
+		char = char.toUpperCase();
+	}
+	stream += char;
+	if (stream.length > stream_max) {
+		stream = stream.substring(stream.length - stream_max);
+	}
 	update_stats();
 }
 
