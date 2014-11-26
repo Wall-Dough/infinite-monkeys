@@ -81,10 +81,19 @@ function monkey_metabolism() {
 			stamina = stamina_max;
 			patience = patience_max;
 			if (hungry_monkeys > 0) {
-				angry_monkeys += hungry_monkeys;
+				if (bananas > hungry_monkeys) {
+					bananas -= hungry_monkeys;
+					angry_monkeys += hungry_monkeys;
+				}
+				else {
+					angry_monkeys += hungry_monkeys;
+					bananas = 0;
+				}
 				hungry_monkeys = 0;
 			}
 		}
 	}
 	update_stats();
 }
+
+var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
