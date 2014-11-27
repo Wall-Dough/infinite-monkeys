@@ -92,6 +92,7 @@ function key_up() {
 }
 
 function publish() {
+	document.getElementById("book").setAttribute("src", "published.png");
 	var earned = Math.floor(characters * character_worth);
 	if (earned < 1) {
 		return;
@@ -100,6 +101,10 @@ function publish() {
 	stream = stream.substring(stream.length - characters);
 	money += earned / 100;
 	update_stats();
+}
+
+function unpublish() {
+	document.getElementById("book").setAttribute("src", "book.png");
 }
 
 function buy_banana() {
