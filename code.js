@@ -115,6 +115,7 @@ function feed_monkey() {
 	if (bananas < 1) {
 		return;
 	}
+	document.getElementById("monkey").setAttribute("src", "monkey_get_banana.png");
 	if (hangry_monkeys > 0) {
 		bananas--;
 		hangry_monkeys--;
@@ -135,6 +136,10 @@ function feed_monkey() {
 		monkeys++;
 	}
 	update_stats();
+}
+
+function unfeed_monkey() {
+	document.getElementById("monkey").setAttribute("src", "monkey_give_banana.png");
 }
 
 function monkey_metabolism() {
