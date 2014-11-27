@@ -112,10 +112,10 @@ function buy_banana() {
 }
 
 function feed_monkey() {
+	document.getElementById("monkey").setAttribute("src", "monkey_get_banana.png");
 	if (bananas < 1) {
 		return;
 	}
-	document.getElementById("monkey").setAttribute("src", "monkey_get_banana.png");
 	if (hangry_monkeys > 0) {
 		bananas--;
 		hangry_monkeys--;
