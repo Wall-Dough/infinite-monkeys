@@ -18,3 +18,14 @@
 .red {
     background-color: firebrick;
 }
+
+#hungry-bar-box, #hangry-bar-box {
+    width: 100px;
+    height: 10px;
+    background-color: sandybrown;
+}
+
+#hungry-box, #hangry-box {
+    height: 100%;
+    background-color: saddlebrown;
+}
