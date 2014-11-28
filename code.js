@@ -1,7 +1,7 @@
 var characters = 0;
 var money = 0;
 var bananas = 0;
-var monkeys = 0;
+var happy_monkeys = 0;
 var hungry_monkeys = 0;
 var angry_monkeys = 0;
 var hangry_monkeys = 0;
@@ -30,11 +30,11 @@ function update_stats() {
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	document.getElementById("bananas-value").innerHTML = bananas;
-	document.getElementById("monkeys-value").innerHTML = monkeys;
+	document.getElementById("happy-value").innerHTML = happy_monkeys;
 	document.getElementById("hungry-value").innerHTML = hungry_monkeys;
 	document.getElementById("angry-value").innerHTML = angry_monkeys;
 	document.getElementById("hangry-value").innerHTML = hangry_monkeys;
-	if ((!are_hungry) && (monkeys > 0)) {
+	if ((!are_hungry) && (happy_monkeys > 0)) {
 		document.getElementById("stamina-value").innerHTML = Math.floor(stamina);
 		var bar_size = Math.floor(stamina / stamina_max * 100);
 		document.getElementById("happy-timer-bar").setAttribute("class", "green");
@@ -165,16 +165,16 @@ function feed_monkey() {
 	else if (hungry_monkeys > 0) {
 		bananas--;
 		hungry_monkeys--;
-		monkeys++;
+		happy_monkeys++;
 	}
 	else if (angry_monkeys > 0) {
 		bananas--;
 		angry_monkeys--;
-		monkeys++;
+		happy_monkeys++;
 	}
 	else {
 		bananas--;
-		monkeys++;
+		happy_monkeys++;
 	}
 	update_stats();
 }
@@ -184,13 +184,13 @@ function unfeed_monkey() {
 }
 
 function monkey_metabolism() {
-	var total_normal_monkeys = monkeys + hungry_monkeys;
+	var total_happy_monkeys = happy_monkeys + hungry_monkeys;
 	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
-	var total_monkeys = total_normal_monkeys + total_angry_monkeys;
+	var total_monkeys = total_happy_monkeys + total_angry_monkeys;
 	var char_previous = Math.floor(characters);
-	characters += (monkeys + angry_monkeys) * (update_speed * type_rate);
+	characters += (happy_monkeys + angry_monkeys) * (update_speed * type_rate);
 	add_to_stream(Math.floor(characters) - char_previous);
-	if (total_normal_monkeys < 1) {
+	if (total_happy_monkeys < 1) {
 		stamina = stamina_max;
 		patience = patience_max;
 		are_hungry = false;
@@ -212,8 +212,8 @@ function monkey_metabolism() {
 	if (stamina <= 0) {
 		if (!are_hungry) {
 			are_hungry = true;
-			hungry_monkeys += monkeys;
-			monkeys = 0;
+			hungry_monkeys += happy_monkeys;
+			happy_monkeys = 0;
 		}
 		if (patience > 0) {
 			patience -= update_speed;
