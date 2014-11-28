@@ -1,10 +1,10 @@
 #stamina-bar-box {
-    background-color: red;
+    background-color: firebrick;
     width: 100px;
     height: 10px;
 }
 
 #stamina-bar {
-    background-color: green;
+    background-color: yellowgreen;
     height: 100%;
 }
