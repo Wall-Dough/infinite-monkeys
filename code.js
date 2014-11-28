@@ -30,8 +30,12 @@ function update_stats() {
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	document.getElementById("bananas-value").innerHTML = bananas;
+	var bar_size = Math.floor(happy_monkeys / (hungry_monkeys + happy_monkeys) * 100);
+	document.getElementById("hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	document.getElementById("happy-value").innerHTML = happy_monkeys;
 	document.getElementById("hungry-value").innerHTML = hungry_monkeys;
+	bar_size = Math.floor(angry_monkeys / (hangry_monkeys + angry_monkeys) * 100);
+	document.getElementById("hangry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	document.getElementById("angry-value").innerHTML = angry_monkeys;
 	document.getElementById("hangry-value").innerHTML = hangry_monkeys;
 	if ((!are_hungry) && (happy_monkeys > 0)) {
