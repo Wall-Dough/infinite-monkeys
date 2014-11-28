@@ -82,7 +82,7 @@ function add_to_stream(num_chars) {
 }
 
 function type_character() {
-	document.getElementById("key").setAttribute("src", "key_down.png");
+	document.getElementById("key").setAttribute("src", "images/key_down.png");
 	characters++;
 	add_to_stream(1);
 	update_stats();
@@ -98,11 +98,11 @@ function keyboard_type(char) {
 }
 
 function key_up() {
-	document.getElementById("key").setAttribute("src", "key_up.png");
+	document.getElementById("key").setAttribute("src", "images/key_up.png");
 }
 
 function publish() {
-	document.getElementById("book").setAttribute("src", "published.png");
+	document.getElementById("book").setAttribute("src", "images/published.png");
 	var earned = Math.floor(characters * character_worth);
 	if (earned < 1) {
 		return;
@@ -114,7 +114,7 @@ function publish() {
 }
 
 function unpublish() {
-	document.getElementById("book").setAttribute("src", "book.png");
+	document.getElementById("book").setAttribute("src", "images/book.png");
 }
 
 function buy_banana() {
@@ -127,7 +127,7 @@ function buy_banana() {
 }
 
 function feed_monkey() {
-	document.getElementById("monkey").setAttribute("src", "monkey_get_banana.png");
+	document.getElementById("monkey").setAttribute("src", "images/monkey_get_banana.png");
 	if (bananas < 1) {
 		return;
 	}
@@ -154,7 +154,7 @@ function feed_monkey() {
 }
 
 function unfeed_monkey() {
-	document.getElementById("monkey").setAttribute("src", "monkey_give_banana.png");
+	document.getElementById("monkey").setAttribute("src", "images/monkey_give_banana.png");
 }
 
 function monkey_metabolism() {
