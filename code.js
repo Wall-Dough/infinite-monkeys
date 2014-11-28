@@ -35,9 +35,9 @@ function update_stats() {
 	if ((!are_hungry) && (monkeys > 0)) {
 		document.getElementById("stamina").innerHTML = Math.floor(stamina);
 		var bar_size = Math.floor(stamina / stamina_max * 100);
-		document.getElementById("happy-stamina-bar").setAttribute("class", "green");
-		document.getElementById("happy-stamina-bar-box").setAttribute("class", "yellow");
-		document.getElementById("happy-stamina-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
+		document.getElementById("happy-timer-bar").setAttribute("class", "green");
+		document.getElementById("happy-timer-bar-box").setAttribute("class", "yellow");
+		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	}
 	else {
 		document.getElementById("stamina").innerHTML = "--";
@@ -50,9 +50,9 @@ function update_stats() {
 	}
 	if (are_hungry) {
 		var bar_size = Math.floor(patience / patience_max * 100);
-		document.getElementById("happy-stamina-bar").setAttribute("class", "yellow");
-		document.getElementById("happy-stamina-bar-box").setAttribute("class", "red");
-		document.getElementById("happy-stamina-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
+		document.getElementById("happy-timer-bar").setAttribute("class", "yellow");
+		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
+		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 		document.getElementById("patience").innerHTML = Math.floor(patience);
 	}
 	else {
@@ -65,8 +65,8 @@ function update_stats() {
 		document.getElementById("angry-patience").innerHTML = "--";
 	}
 	if ((happy_monkeys + hungry monkeys) == 0) {
-		document.getElementById("happy-stamina-bar").setAttribute("style", "width: 0;");
-		document.getElementById("happy-stamina-bar-box").setAttribute("class", "red");
+		document.getElementById("happy-timer-bar").setAttribute("style", "width: 0;");
+		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
 	}
 }
 
