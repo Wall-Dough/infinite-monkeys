@@ -64,7 +64,7 @@ function update_stats() {
 	else {
 		document.getElementById("angry-patience").innerHTML = "--";
 	}
-	if ((happy_monkeys + hungry monkeys) == 0) {
+	if ((happy_monkeys + hungry_monkeys) == 0) {
 		document.getElementById("happy-timer-bar").setAttribute("style", "width: 0;");
 		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
 	}
