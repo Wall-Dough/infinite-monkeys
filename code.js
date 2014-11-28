@@ -21,7 +21,7 @@ var added_chars = 0;
 var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
-var char_codes = []
+var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 
 function update_stats() {
 	document.getElementById("characters").innerHTML = Math.floor(characters);
@@ -66,13 +66,6 @@ function random_char() {
 	return char;
 }
 
-function add_char_to_stream(char) {
-	stream += char;
-	if (stream.length > stream_max) {
-		stream = stream.substring(stream.length - stream_max);
-	}
-}
-
 function add_to_stream(num_chars) {
 	if (num_chars < 1) {
 		return;
@@ -92,6 +85,15 @@ function type_character() {
 	document.getElementById("key").setAttribute("src", "key_down.png");
 	characters++;
 	add_to_stream(1);
+	update_stats();
+}
+
+function keyboard_type(char) {
+	characters++;
+	stream += char;
+	if (stream.length > stream_max) {
+		stream = stream.substring(stream.length - stream_max);
+	}
 	update_stats();
 }
 
@@ -245,7 +247,7 @@ window.onload = function () {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
 		if (i != -1) {
-			add_char_to_stream(char_list[i]);
+			keyboard_type(char_list[i]);
 		}
 	}
 }
