@@ -32,11 +32,11 @@ function update_stats() {
 	document.getElementById("bananas-value").innerHTML = bananas;
 	var bar_size = Math.floor(happy_monkeys / (hungry_monkeys + happy_monkeys) * 100);
 	document.getElementById("hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("not-hungry-value").innerHTML = happy_monkeys;
+	document.getElementById("busy-happy-value").innerHTML = happy_monkeys;
 	document.getElementById("happy-value").innerHTML = happy_monkeys + hungry_monkeys;
 	bar_size = Math.floor(angry_monkeys / (hangry_monkeys + angry_monkeys) * 100);
 	document.getElementById("hangry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("not-hangry-value").innerHTML = angry_monkeys;
+	document.getElementById("busy-angry-value").innerHTML = angry_monkeys;
 	document.getElementById("angry-value").innerHTML = angry_monkeys + hangry_monkeys;
 	if ((!are_hungry) && (happy_monkeys > 0)) {
 		document.getElementById("happy-timer").innerHTML = Math.floor(stamina);
