@@ -10,10 +10,12 @@ var banana_cost = 0.19;
 var stamina_max = 120;
 var stamina = stamina_max;
 var type_rate = 2 / 3;
-var angry_stamina = stamina / 2;
+var angry_stamina_max = stamina_max / 2;
+var angry_stamina = angry_stamina_max;
 var patience_max = 30;
 var patience = patience_max;
-var angry_patience = patience_max / 2;
+var angry_patience_max = patience_max / 2;
+var angry_patience = angry_patience_max;
 var update_speed = 0.5;
 var are_hungry = false;
 var are_hangry = false;
@@ -44,6 +46,10 @@ function update_stats() {
 	}
 	if ((!are_hangry) && (angry_monkeys > 0)) {
 		document.getElementById("angry-stamina").innerHTML = Math.floor(angry_stamina);
+		var bar_size = Math.floor(angry_stamina / angry_stamina_max * 100);
+		document.getElementById("angry-timer-bar").setAttribute("class", "green");
+		document.getElementById("angry-timer-bar-box").setAttribute("class", "yellow");
+		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	}
 	else {
 		document.getElementById("angry-stamina").innerHTML = "--";
@@ -59,6 +65,10 @@ function update_stats() {
 		document.getElementById("patience").innerHTML = "--";
 	}
 	if (are_hangry) {
+		var bar_size = Math.floor(angry_patience / angry_patience_max * 100);
+		document.getElementById("angry-timer-bar").setAttribute("class", "yellow");
+		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
+		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 		document.getElementById("angry-patience").innerHTML = Math.floor(angry_patience);
 	}
 	else {
@@ -67,6 +77,10 @@ function update_stats() {
 	if ((happy_monkeys + hungry_monkeys) == 0) {
 		document.getElementById("happy-timer-bar").setAttribute("style", "width: 0;");
 		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
+	}
+	if ((angry_monkeys + hangry_monkeys) == 0) {
+		document.getElementById("angry-timer-bar").setAttribute("style", "width: 0;");
+		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
 	}
 }
 
@@ -182,8 +196,8 @@ function monkey_metabolism() {
 		are_hungry = false;
 	}
 	if (total_angry_monkeys < 1) {
-		angry_stamina = stamina_max / 2;
-		angry_patience = patience_max / 2;
+		angry_stamina = angry_stamina_max;
+		angry_patience = angry_patience_max;
 		are_hangry = false;
 	}
 	if (total_monkeys < 1) {
@@ -237,14 +251,22 @@ function monkey_metabolism() {
 		}
 		if (hangry_monkeys <= 0) {
 			are_hangry = false;
-			angry_stamina = stamina_max / 2;
-			angry_patience = patience_max / 2;
+			angry_stamina = angry_stamina_max;
+			angry_patience = angry_patience_max;
 		}
 		if (angry_patience <= 0) {
 			are_hangry = false;
-			angry_stamina = stamina_max / 2;
-			angry_patience = patience_max / 2;
-			hangry_monkeys = 0;
+			angry_stamina = angry_stamina_max;
+			angry_patience = angry_patience_max;
+			if (bananas > hangry_monkeys) {
+				bananas -= hangry_monkeys;
+				angry_monkeys += hangry_monkeys;
+				hangry_monkeys = 0;
+			}
+			else {
+				angry_monkeys += bananas;
+				bananas = 0;
+			}
 		}
 	}
 	update_stats();
