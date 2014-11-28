@@ -9,18 +9,45 @@
 <div id="characters-value-box"><span id="characters-value">0</span> characters</div>
 <div id="money-value-box">$<span id="money-value">0.00</span> (<span id="character-worth">0.00</span>¢ per character)</div>
 <div id="bananas-value-box"><span id="bananas-value">0</span> bananas ($<span id="banana-price">0.00</span> per banana)</div>
-<div id="happy-value-box"><span id="happy-value">0</span> happy monkeys (<span id="type-rate">0.00</span> characters per monkey per sec.)</div>
-<div id="hungry-value-box"><span id="hungry-value">0</span> hungry monkeys</div>
-<div id="angry-value-box"><span id="angry-value">0</span> angry monkeys</div>
-<div id="hangry-value-box"><span id="hangry-value">0</span> hangry monkeys</div>
-<div id="happy-timer-bar-box" class="red"><div id="happy-timer-bar" class="green" style="width: 0"></div></div>
-<div id="hungry-bar-box"><div id="hungry-bar" style="width: 100%;"></div></div>
-<div id="stamina-value-box"><span id="stamina-value">--</span> secs. until the happy monkeys get hungry</div>
-<div id="patience-value-box"><span id="patience-value">--</span> secs. until the hungry monkeys get angry and steal your bananas</div>
-<div id="angry-timer-bar-box" class="red"><div id="angry-timer-bar" class="green" style="width: 0"></div></div>
-<div id="hangry-bar-box"><div id="hangry-bar" style="width: 100%;"></div></div>
-<div id="angry-stamina-value-box"><span id="angry-stamina-value">--</span> secs. until the angry monkeys get hangry</div>
-<div id="angry-patience-value-box"><span id="angry-patience-value">--</span> secs. until the hangry monkeys quit</div>
+<table>
+  <thead>
+    <tr>
+      <td colspan="3">Happy Monkeys</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stamina:</td>
+      <td><div id="happy-timer-bar-box" class="red"><div id="happy-timer-bar" class="green" style="width: 0"></div></div></td>
+      <td><span id="happy-timer"></span></td>
+    </tr>
+    <tr>
+      <td>Monkeys not hungry:</td>
+      <td><div id="hungry-bar-box"><div id="hungry-bar" style="width: 100%;"></div></div></td>
+      <td><div id="not-hungry-value">0</div> / <div id="happy-value">0</div></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <td colspan="3">Angry Monkeys</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stamina:</td>
+      <td><div id="angry-timer-bar-box" class="red"><div id="angry-timer-bar" class="green" style="width: 0"></div></div></td>
+      <td><span id="angry-timer"></span></td>
+    </tr>
+    <tr>
+      <td>Monkeys not hungry:</td>
+      <td><div id="hangry-bar-box"><div id="hangry-bar" style="width: 100%;"></div></div></td>
+      <td><span id="not-hangry-value">0</span> / <span id="angry-value">0</span></td>
+    </tr>
+  </tbody>
+</table>
+
 <img id="key" src="images/key_up.png" onmousedown="type_character();" onmouseup="key_up();" width="148" />
 <img id="book" src="images/book.png" onmousedown="publish();" onmouseup="unpublish();" height="100" />
 <img id="banana" src="images/banana.png" onclick="buy_banana();" height="100" />
