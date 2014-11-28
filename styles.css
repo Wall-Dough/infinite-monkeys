@@ -1,2 +1,10 @@
 #stamina-bar-box {
+    background-color: red;
+    width: 100px;
+    height: 10px;
+}
+
+#stamina-bar {
+    background-color: green;
+    height: 100%;
 }
