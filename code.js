@@ -21,6 +21,7 @@ var added_chars = 0;
 var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
+var char_codes = []
 
 function update_stats() {
 	document.getElementById("characters").innerHTML = Math.floor(characters);
@@ -63,6 +64,13 @@ function random_char() {
 		char = char.toUpperCase();
 	}
 	return char;
+}
+
+function add_char_to_stream(char) {
+	stream += char;
+	if (stream.length > stream_max) {
+		stream = stream.substring(stream.length - stream_max);
+	}
 }
 
 function add_to_stream(num_chars) {
@@ -233,4 +241,11 @@ window.onload = function () {
 	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
 	document.getElementById("type-rate").innerHTML = type_rate.toFixed(2);
 	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+	window.onkeydown = function(e) {
+		var key = e.keyCode ? e.keyCode : e.which;
+		var i = char_codes.indexOf(key);
+		if (i != -1) {
+			add_char_to_stream(char_list[i]);
+		}
+	}
 }
