@@ -1,10 +1,20 @@
 #stamina-bar-box {
-    background-color: firebrick;
     width: 100px;
     height: 10px;
 }
 
-#stamina-bar {
-    background-color: yellowgreen;
+#timer-bar {
     height: 100%;
+}
+
+.green {
+    background-color: yellowgreen;
+}
+
+.yellow {
+    background-color: goldenrod;
+}
+
+.red {
+    background-color: firebrick;
 }
