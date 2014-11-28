@@ -66,6 +66,7 @@ function update_stats() {
 	}
 	if ((happy_monkeys + hungry monkeys) == 0) {
 		document.getElementById("happy-stamina-bar").setAttribute("style", "width: 0;");
+		document.getElementById("happy-stamina-bar-box").setAttribute("class", "red");
 	}
 }
 
