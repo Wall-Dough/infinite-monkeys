@@ -1,3 +1,7 @@
+body {
+    font-family: Courier;
+}
+
 #happy-timer-bar-box, #angry-timer-bar-box {
     width: 100px;
     height: 10px;
