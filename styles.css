@@ -1,9 +1,9 @@
-#stamina-bar-box {
+#happy-timer-bar-box, #angry-timer-bar-box {
     width: 100px;
     height: 10px;
 }
 
-#timer-bar {
+#happy-timer-bar, #angry-timer-bar {
     height: 100%;
 }
 
