@@ -34,9 +34,12 @@ function update_stats() {
 	document.getElementById("hangry").innerHTML = hangry_monkeys;
 	if ((!are_hungry) && (monkeys > 0)) {
 		document.getElementById("stamina").innerHTML = Math.floor(stamina);
+		var bar_size = Math.floor(stamina / stamina_max * 100);
+		document.getElementById("stamina-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	}
 	else {
 		document.getElementById("stamina").innerHTML = "--";
+		document.getElementById("stamina-bar").setAttribute("style", "width: 0");
 	}
 	if ((!are_hangry) && (angry_monkeys > 0)) {
 		document.getElementById("angry-stamina").innerHTML = Math.floor(angry_stamina);
