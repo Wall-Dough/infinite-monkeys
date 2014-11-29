@@ -24,6 +24,58 @@ var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
+var monkey_types = [{
+	name: "Happy Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 120,
+	stamina: this.stamina_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	}
+}, {
+	name: "Angry Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 120,
+	stamina: this.stamina_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	}
+}, {
+	name: "Publisher Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 120,
+	stamina: this.stamina_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	}
+}, {
+	name: "Banana-Buying Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 120,
+	stamina: this.stamina_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	}
+}, {
+	name: "Feeding Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 120,
+	stamina: this.stamina_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	}
+}
+];
 
 function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
@@ -182,7 +234,6 @@ function monkey_metabolism() {
 	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
 	var total_monkeys = total_happy_monkeys + total_angry_monkeys;
 	var char_previous = Math.floor(characters);
-	characters += (happy_monkeys + angry_monkeys) * (update_speed * type_rate);
 	add_to_stream(Math.floor(characters) - char_previous);
 	if (total_happy_monkeys < 1) {
 		stamina = stamina_max;
