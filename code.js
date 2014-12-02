@@ -24,56 +24,150 @@ var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
+
+function feed_monkeys(amount) {
+	if (amount > bananas) {
+		amount = bananas;
+	}
+	if (amount < 1) {
+		return;
+	}
+	var i;
+	var to_feed;
+	for (i = 0; i < monkey_types.length; i++) {
+		if (monkey_types[i].hungry > 0) {
+			to_feed = amount;
+			if (to_feed > monkey_types[i].hungry) {
+				to_feed = monkey_types[i].hungry;
+				amount -= monkey_types[i].hungry;
+			}
+			else {
+				amount = 0;
+			}
+			monkey_types[i].hungry -= to_feed;
+			bananas -= to_feed;
+			if (amount < 1) {
+				update_stats();
+				return;
+			}
+		}
+	}
+	for (i = 0; i < monkey_types.length; i++) {
+		if (monkey_types[i].count > 0) {
+			if (monkey_types[i].treat > -1) {
+				to_feed = amount;
+				if (to_feed > monkey_types[i].count) {
+					to_feed = monkey_types[i].count;
+					amount -= monkey_types[i].count;
+				}
+				else {
+					amount = 0;
+				}
+				monkey_types[i].count -= to_feed;
+				monkey_types[monkey_types[i].treat].count += to_feed;
+				bananas -= to_feed;
+			}
+		}
+		if (amount < 1) {
+			update_stats();
+			return;
+		}
+	}
+	bananas -= amount;
+	happy_monkeys += amount;
+	update_stats();
+}
+
 var monkey_types = [{
+	name: "Angry Monkeys",
+	count: 0,
+	hungry: 0,
+	stamina_max: 60,
+	stamina: this.stamina_max,
+	patience_max: 15,
+	patience: this.patience_max,
+	rate: 2 / 3,
+	func: function () {
+		characters += this.count * update_speed * this.rate;
+	},
+	angry: 0,
+	treat: 1
+}, {
 	name: "Happy Monkeys",
 	count: 0,
 	hungry: 0,
 	stamina_max: 120,
 	stamina: this.stamina_max,
+	patience_max: 30,
+	patience: this.patience_max,
 	rate: 2 / 3,
 	func: function () {
 		characters += this.count * update_speed * this.rate;
-	}
-}, {
-	name: "Angry Monkeys",
-	count: 0,
-	hungry: 0,
-	stamina_max: 120,
-	stamina: this.stamina_max,
-	rate: 2 / 3,
-	func: function () {
-		characters += this.count * update_speed * this.rate;
-	}
+	},
+	angry: 0,
+	treat: -1
 }, {
 	name: "Publisher Monkeys",
 	count: 0,
 	hungry: 0,
 	stamina_max: 120,
 	stamina: this.stamina_max,
+	patience_max: 30,
+	patience: this.patience_max,
 	rate: 2 / 3,
 	func: function () {
-		characters += this.count * update_speed * this.rate;
-	}
+		if (Math.floor(characters * character_worth) > Math.floor(this.count * this.rate * this.update_speed)) {
+			earned = Math.floor(this.count * this.rate * this.update_speed);
+		}
+		else {
+			earned = Math.floor(characters * character_worth);
+		}
+		characters -= earned / character_worth;
+		money += earned / 100;
+	},
+	angry: 2,
+	treat: -1
 }, {
 	name: "Banana-Buying Monkeys",
 	count: 0,
 	hungry: 0,
 	stamina_max: 120,
 	stamina: this.stamina_max,
+	patience_max: 30,
+	patience: this.patience_max,
 	rate: 2 / 3,
 	func: function () {
-		characters += this.count * update_speed * this.rate;
-	}
+		if (Math.floor(this.count * this.rate * update_speed) > Math.floor(money / banana_cost)) {
+			buy = Math.floor(money / banana_cost);
+		}
+		else {
+			buy = Math.floor(this.count * this.rate * update_speed);
+		}
+		money -= buy * banana_cost;
+		bananas += buy;
+	},
+	angry: 3,
+	treat: -1
 }, {
 	name: "Feeding Monkeys",
 	count: 0,
 	hungry: 0,
 	stamina_max: 120,
 	stamina: this.stamina_max,
+	patience_max: 30,
+	patience: this.patience_max,
 	rate: 2 / 3,
 	func: function () {
-		characters += this.count * update_speed * this.rate;
-	}
+		if (Math.floor(this.count * this.rate * update_speed) > bananas) {
+			feed = Math.floor(this.count * this.rate * update_speed);
+		}
+		else {
+			feed = bananas;
+		}
+		feed_monkeys(feed);
+	},
+	angry: 4,
+	treat: -1
 }
 ];
 
