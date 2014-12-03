@@ -352,7 +352,7 @@ function buy_banana() {
 
 function feed_monkey() {
 	document.getElementById("monkey").setAttribute("src", "images/monkey_get_banana.png");
-	feed_monkeys(1);
+	feed_monkeys(1, 1);
 }
 
 function unfeed_monkey() {
