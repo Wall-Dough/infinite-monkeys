@@ -73,15 +73,17 @@ function feed_monkeys(amount) {
 			return;
 		}
 	}
+	monkey_types[i].count += amount;
 	bananas -= amount;
-	happy_monkeys += amount;
 	update_stats();
 }
 
 var monkey_types = [{
 	name: "Angry Monkeys",
+	id: "angry",
 	count: 0,
 	hungry: 0,
+	are_hungry: false,
 	stamina_max: 60,
 	stamina: this.stamina_max,
 	patience_max: 15,
@@ -91,11 +93,14 @@ var monkey_types = [{
 		characters += this.count * update_speed * this.rate;
 	},
 	angry: 0,
-	treat: 1
+	treat: 1,
+	hire: -1
 }, {
 	name: "Happy Monkeys",
+	id: "happy",
 	count: 0,
 	hungry: 0,
+	are_hungry: false,
 	stamina_max: 120,
 	stamina: this.stamina_max,
 	patience_max: 30,
@@ -105,11 +110,14 @@ var monkey_types = [{
 		characters += this.count * update_speed * this.rate;
 	},
 	angry: 0,
-	treat: -1
+	treat: -1,
+	hire: 0
 }, {
 	name: "Publisher Monkeys",
+	id: "publisher",
 	count: 0,
 	hungry: 0,
+	are_hungry: false,
 	stamina_max: 120,
 	stamina: this.stamina_max,
 	patience_max: 30,
@@ -126,11 +134,14 @@ var monkey_types = [{
 		money += earned / 100;
 	},
 	angry: 2,
-	treat: -1
+	treat: -1,
+	hire: -1
 }, {
 	name: "Banana-Buying Monkeys",
+	id: "buyer",
 	count: 0,
 	hungry: 0,
+	are_hungry: false,
 	stamina_max: 120,
 	stamina: this.stamina_max,
 	patience_max: 30,
@@ -147,11 +158,14 @@ var monkey_types = [{
 		bananas += buy;
 	},
 	angry: 3,
-	treat: -1
+	treat: -1,
+	hire: -1
 }, {
 	name: "Feeding Monkeys",
+	id: "feeding",
 	count: 0,
 	hungry: 0,
+	are_hungry: false,
 	stamina_max: 120,
 	stamina: this.stamina_max,
 	patience_max: 30,
@@ -167,7 +181,8 @@ var monkey_types = [{
 		feed_monkeys(feed);
 	},
 	angry: 4,
-	treat: -1
+	treat: -1,
+	hire: -1
 }
 ];
 
@@ -176,48 +191,48 @@ function update_stats() {
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	document.getElementById("bananas-value").innerHTML = bananas;
-	var bar_size = Math.floor(happy_monkeys / (hungry_monkeys + happy_monkeys) * 100);
+	var bar_size = Math.floor(monkey_types[1].hungry / monkey_types[1].count * 100);
 	document.getElementById("hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("busy-happy-value").innerHTML = happy_monkeys;
-	document.getElementById("happy-value").innerHTML = happy_monkeys + hungry_monkeys;
-	bar_size = Math.floor(angry_monkeys / (hangry_monkeys + angry_monkeys) * 100);
+	document.getElementById("busy-happy-value").innerHTML = monkey_types[1].count - monkey_types[1].hungry;
+	document.getElementById("happy-value").innerHTML = monkey_types[1].count;
+	bar_size = Math.floor(monkey_types[0].hungry / monkey_types[0].count * 100);
 	document.getElementById("hangry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("busy-angry-value").innerHTML = angry_monkeys;
-	document.getElementById("angry-value").innerHTML = angry_monkeys + hangry_monkeys;
-	if ((!are_hungry) && (happy_monkeys > 0)) {
-		document.getElementById("happy-timer").innerHTML = Math.floor(stamina);
-		var bar_size = Math.floor(stamina / stamina_max * 100);
+	document.getElementById("busy-angry-value").innerHTML = monkey_types[0].count - monkey_types[0].hungry;
+	document.getElementById("angry-value").innerHTML = monkey_types[0].count;
+	if ((!monkey_types[1].are_hungry) && (monkey_types[1].count > 0)) {
+		document.getElementById("happy-timer").innerHTML = Math.floor(monkey_types[1].stamina);
+		var bar_size = Math.floor(monkey_types[1].stamina / monkey_types[1].stamina_max * 100);
 		document.getElementById("happy-timer-bar").setAttribute("class", "green");
 		document.getElementById("happy-timer-bar-box").setAttribute("class", "yellow");
 		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	}
-	if ((!are_hangry) && (angry_monkeys > 0)) {
-		document.getElementById("angry-timer").innerHTML = Math.floor(angry_stamina);
-		var bar_size = Math.floor(angry_stamina / angry_stamina_max * 100);
+	if ((!monkey_types[0].are_hungry) && (monkey_types[0].count > 0)) {
+		document.getElementById("angry-timer").innerHTML = Math.floor(monkey_types[0].stamina);
+		var bar_size = Math.floor(monkey_types[0].stamina / monkey_types[0].stamina_max * 100);
 		document.getElementById("angry-timer-bar").setAttribute("class", "green");
 		document.getElementById("angry-timer-bar-box").setAttribute("class", "yellow");
 		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	}
-	if (are_hungry) {
-		var bar_size = Math.floor(patience / patience_max * 100);
+	if (monkey_types[1].are_hungry) {
+		var bar_size = Math.floor(monkey_types[1].patience / monkey_types[1].patience_max * 100);
 		document.getElementById("happy-timer-bar").setAttribute("class", "yellow");
 		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
 		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-		document.getElementById("happy-timer").innerHTML = Math.floor(patience);
+		document.getElementById("happy-timer").innerHTML = Math.floor(monkey_types[1].patience);
 	}
-	if (are_hangry) {
-		var bar_size = Math.floor(angry_patience / angry_patience_max * 100);
+	if (monkey_types[0].are_hungry) {
+		var bar_size = Math.floor(monkey_types[0].patience / monkey_types[0].max * 100);
 		document.getElementById("angry-timer-bar").setAttribute("class", "yellow");
 		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
 		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-		document.getElementById("angry-timer").innerHTML = Math.floor(angry_patience);
+		document.getElementById("angry-timer").innerHTML = Math.floor(monkey_types[0].patience);
 	}
-	if ((happy_monkeys + hungry_monkeys) == 0) {
+	if (monkey_types[1].count == 0) {
 		document.getElementById("happy-timer-bar").setAttribute("style", "width: 0;");
 		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
 		document.getElementById("happy-timer").innerHTML = "--";
 	}
-	if ((angry_monkeys + hangry_monkeys) == 0) {
+	if (monkey_types[0].count == 0) {
 		document.getElementById("angry-timer-bar").setAttribute("style", "width: 0;");
 		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
 		document.getElementById("angry-timer").innerHTML = "--";
@@ -294,29 +309,7 @@ function buy_banana() {
 
 function feed_monkey() {
 	document.getElementById("monkey").setAttribute("src", "images/monkey_get_banana.png");
-	if (bananas < 1) {
-		return;
-	}
-	if (hangry_monkeys > 0) {
-		bananas--;
-		hangry_monkeys--;
-		angry_monkeys++;
-	}
-	else if (hungry_monkeys > 0) {
-		bananas--;
-		hungry_monkeys--;
-		happy_monkeys++;
-	}
-	else if (angry_monkeys > 0) {
-		bananas--;
-		angry_monkeys--;
-		happy_monkeys++;
-	}
-	else {
-		bananas--;
-		happy_monkeys++;
-	}
-	update_stats();
+	feed_monkeys(1);
 }
 
 function unfeed_monkey() {
@@ -324,98 +317,61 @@ function unfeed_monkey() {
 }
 
 function monkey_metabolism() {
-	var total_happy_monkeys = happy_monkeys + hungry_monkeys;
-	var total_angry_monkeys = angry_monkeys + hangry_monkeys;
-	var total_monkeys = total_happy_monkeys + total_angry_monkeys;
 	var char_previous = Math.floor(characters);
+	var i;
+	for (i = 0; i < monkey_types.length; i++) {
+		if (monkey_types[i].count < 1) {
+			continue;
+		}
+		monkey_types[i].func();
+		if (monkey_types[i].count < 1) {
+			monkey_types[i].stamina = stamina_max;
+			monkey_types[i].patience = patience_max;
+		}
+		if (monkey_types[i].stamina > 0) {
+			stamina -= update_speed;
+		}
+		if ((monkey_types[i].stamina <= 0)) {
+			if (!monkey_types[i].are_hungry) {
+				monkey_types[i].are_hungry = true;
+				monkey_types[i].hungry += monkey_types[i].count;
+			}
+			if (monkey_types[i].patience > 0) {
+				monkey_types[i].patience -= update_speed;
+			}
+			if (monkey_types[i].patience <= 0) {
+				monkey_types[i].are_hungry = false;
+				monkey_types[i].stamina = monkey_types[i].stamina_max;
+				monkey_types[i].patience = monkey_types[i].patience_max;
+				if (monkey_types[i].hungry > 0) {
+					if (bananas > monkey_types[i].hungry) {
+						bananas -= monkey_types[i].hungry;
+						if (monkey_types[i].angry > -1) {
+							monkey_types[i].count -= monkey_types[i].hungry;
+							monkey_types[monkey_types[i].angry].count += monkey_types[i].hungry;
+						}
+					}
+					else {
+						if (monkey_types[i].angry > -1) {
+							monkey_types[i].count -= bananas;
+							monkey_types[monkey_types[i].angry].count += bananas;
+						}
+						bananas = 0;
+					}
+					monkey_types[i].hungry = 0;
+				}
+			}
+		}
+	}
 	add_to_stream(Math.floor(characters) - char_previous);
-	if (total_happy_monkeys < 1) {
-		stamina = stamina_max;
-		patience = patience_max;
-		are_hungry = false;
-	}
-	if (total_angry_monkeys < 1) {
-		angry_stamina = angry_stamina_max;
-		angry_patience = angry_patience_max;
-		are_hangry = false;
-	}
-	if (total_monkeys < 1) {
-		return;
-	}
-	if (stamina > 0) {
-		stamina -= update_speed;
-	}
-	if (angry_stamina > 0) {
-		angry_stamina -= update_speed;
-	}
-	if (stamina <= 0) {
-		if (!are_hungry) {
-			are_hungry = true;
-			hungry_monkeys += happy_monkeys;
-			happy_monkeys = 0;
-		}
-		if (patience > 0) {
-			patience -= update_speed;
-		}
-		if (hungry_monkeys <= 0) {
-			are_hungry = false;
-			stamina = stamina_max;
-			patience = patience_max;
-		}
-		if (patience <= 0) {
-			are_hungry = false;
-			stamina = stamina_max;
-			patience = patience_max;
-			if (hungry_monkeys > 0) {
-				if (bananas > hungry_monkeys) {
-					bananas -= hungry_monkeys;
-					angry_monkeys += hungry_monkeys;
-				}
-				else {
-					angry_monkeys += bananas;
-					bananas = 0;
-				}
-				hungry_monkeys = 0;
-			}
-		}
-	}
-	if (angry_stamina <= 0) {
-		if (!are_hangry) {
-			are_hangry = true;
-			hangry_monkeys += angry_monkeys;
-			angry_monkeys = 0;
-		}
-		if (angry_patience > 0) {
-			angry_patience -= update_speed;
-		}
-		if (hangry_monkeys <= 0) {
-			are_hangry = false;
-			angry_stamina = angry_stamina_max;
-			angry_patience = angry_patience_max;
-		}
-		if (angry_patience <= 0) {
-			are_hangry = false;
-			angry_stamina = angry_stamina_max;
-			angry_patience = angry_patience_max;
-			if (bananas > hangry_monkeys) {
-				bananas -= hangry_monkeys;
-				angry_monkeys += hangry_monkeys;
-				hangry_monkeys = 0;
-			}
-			else {
-				angry_monkeys += bananas;
-				bananas = 0;
-			}
-		}
-	}
 	update_stats();
 }
 
 window.onload = function () {
 	document.getElementById("banana-price").innerHTML = banana_cost.toFixed(2);
 	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
-	document.getElementById("happy-type-rate").innerHTML = type_rate.toFixed(2);
-	document.getElementById("angry-type-rate").innerHTML = type_rate.toFixed(2);
+	document.getElementById("happy-type-rate").innerHTML = monkey_types[1].rate.toFixed(2);
+	document.getElementById("angry-type-rate").innerHTML = monkey_types[0].rate.toFixed(2);
 	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
