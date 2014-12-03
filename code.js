@@ -1,33 +1,50 @@
 var characters = 0;
 var money = 0;
-var bananas = 0;
-var happy_monkeys = 0;
-var hungry_monkeys = 0;
-var angry_monkeys = 0;
-var hangry_monkeys = 0;
 var character_worth = 0.25;
-var banana_cost = 0.19;
-var stamina_max = 120;
-var stamina = stamina_max;
-var type_rate = 2 / 3;
-var angry_stamina_max = stamina_max / 2;
-var angry_stamina = angry_stamina_max;
-var patience_max = 30;
-var patience = patience_max;
-var angry_patience_max = patience_max / 2;
-var angry_patience = angry_patience_max;
 var update_speed = 0.5;
-var are_hungry = false;
-var are_hangry = false;
-var added_chars = 0;
 var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 
-function feed_monkeys(amount) {
-	if (amount > bananas) {
-		amount = bananas;
+var banana_recipes = [
+	[0, 0, 0]	
+];
+
+var banana_types = [ {
+	name: "Green Banana",
+	ripe_time_max: 30,
+	ripe_time: this.ripe_time_max,
+	ripe: 1,
+	count: 0,
+	cost: 0.19
+}, {
+	name: "Regular Banana",
+	ripe_time_max: 120,
+	ripe_time: this.ripe_time_max,
+	ripe: 2,
+	count: 0,
+	cost: 0.19
+}, {
+	name: "Rotten Banana",
+	ripe_time_max: 60,
+	ripe_time: this.ripe_time_max,
+	ripe: 3,
+	count: 0,
+	cost: 0.19
+}, {
+	name: "Fertilizer Banana",
+	ripe_time_max: -1,
+	ripe_time: this.ripe_time_max,
+	ripe: -1,
+	count: 0,
+	cost: 0.19
+}
+];
+
+function feed_monkeys(type, amount) {
+	if (amount > banana_types[type].count) {
+		amount = banana_types[type].count;
 	}
 	if (amount < 1) {
 		return;
@@ -35,6 +52,9 @@ function feed_monkeys(amount) {
 	var i;
 	var to_feed;
 	for (i = 0; i < monkey_types.length; i++) {
+		if (type != monkey_types[i].food) {
+			continue;
+		}
 		if (monkey_types[i].hungry > 0) {
 			to_feed = amount;
 			if (to_feed > monkey_types[i].hungry) {
@@ -45,7 +65,7 @@ function feed_monkeys(amount) {
 				amount = 0;
 			}
 			monkey_types[i].hungry -= to_feed;
-			bananas -= to_feed;
+			banana_types[type].count -= to_feed;
 			if (amount < 1) {
 				update_stats();
 				return;
@@ -53,6 +73,9 @@ function feed_monkeys(amount) {
 		}
 	}
 	for (i = 0; i < monkey_types.length; i++) {
+		if (type != monkey_types[i].treat) {
+			continue;
+		}
 		if (monkey_types[i].count > 0) {
 			if (monkey_types[i].treat > -1) {
 				to_feed = amount;
@@ -64,8 +87,8 @@ function feed_monkeys(amount) {
 					amount = 0;
 				}
 				monkey_types[i].count -= to_feed;
-				monkey_types[monkey_types[i].treat].count += to_feed;
-				bananas -= to_feed;
+				monkey_types[monkey_types[i].happy].count += to_feed;
+				banana_types[type].count -= to_feed;
 			}
 		}
 		if (amount < 1) {
@@ -73,8 +96,14 @@ function feed_monkeys(amount) {
 			return;
 		}
 	}
-	monkey_types[1].count += amount;
-	bananas -= amount;
+	for (i = 0; i < monkey_types.length; i++) {
+		if (type != monkey_types[i].hire) {
+			continue;
+		}
+		monkey_types[i].count += amount;
+		banana_types[type].count -= amount;
+		break;
+	}
 	update_stats();
 }
 
@@ -94,7 +123,9 @@ var monkey_types = [{
 	},
 	angry: 0,
 	treat: 1,
-	hire: -1
+	happy: 1,
+	hire: -1,
+	food: 1
 }, {
 	name: "Happy Monkeys",
 	id: "happy",
@@ -111,7 +142,9 @@ var monkey_types = [{
 	},
 	angry: 0,
 	treat: -1,
-	hire: 0
+	happy: -1,
+	hire: 0,
+	food: 1
 }, {
 	name: "Publisher Monkeys",
 	id: "publisher",
@@ -135,7 +168,9 @@ var monkey_types = [{
 	},
 	angry: 2,
 	treat: -1,
-	hire: -1
+	happy: -1,
+	hire: -1,
+	food: -1
 }, {
 	name: "Banana-Buying Monkeys",
 	id: "buyer",
@@ -159,7 +194,9 @@ var monkey_types = [{
 	},
 	angry: 3,
 	treat: -1,
-	hire: -1
+	happy: -1,
+	hire: -1,
+	food: -1
 }, {
 	name: "Feeding Monkeys",
 	id: "feeding",
@@ -182,7 +219,9 @@ var monkey_types = [{
 	},
 	angry: 4,
 	treat: -1,
-	hire: -1
+	happy: -1,
+	hire: -1,
+	food: -1
 }
 ];
 
@@ -190,7 +229,7 @@ function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
-	document.getElementById("bananas-value").innerHTML = bananas;
+	document.getElementById("bananas-value").innerHTML = banana_types[1].count;
 	var bar_size = Math.floor(monkey_types[1].hungry / monkey_types[1].count * 100);
 	document.getElementById("hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
 	document.getElementById("busy-happy-value").innerHTML = monkey_types[1].count - monkey_types[1].hungry;
@@ -298,13 +337,17 @@ function unpublish() {
 	document.getElementById("book").setAttribute("src", "images/book.png");
 }
 
-function buy_banana() {
-	if (money < banana_cost) {
+function buy_banana_type(type, amount) {
+	if (money < (banana_types[type].cost * amount)) {
 		return;
 	}
-	money -= banana_cost;
-	bananas++;
+	money -= (banana_types[type].cost * amount);
+	banana_types[type].count += amount;
 	update_stats();
+}
+
+function buy_banana() {
+	buy_banana_type(1, 1);
 }
 
 function feed_monkey() {
@@ -345,7 +388,7 @@ function monkey_metabolism() {
 				monkey_types[i].patience = monkey_types[i].patience_max;
 				if (monkey_types[i].hungry > 0) {
 					if (bananas > monkey_types[i].hungry) {
-						bananas -= monkey_types[i].hungry;
+						banana_types[monkey_types[i].food].count -= monkey_types[i].hungry;
 						if (monkey_types[i].angry > -1) {
 							monkey_types[i].count -= monkey_types[i].hungry;
 							monkey_types[monkey_types[i].angry].count += monkey_types[i].hungry;
@@ -353,10 +396,10 @@ function monkey_metabolism() {
 					}
 					else {
 						if (monkey_types[i].angry > -1) {
-							monkey_types[i].count -= bananas;
-							monkey_types[monkey_types[i].angry].count += bananas;
+							monkey_types[i].count -= banana_types[monkey_types[i].food].count;
+							monkey_types[monkey_types[i].angry].count += banana_types[monkey_types[i].food].count;
 						}
-						bananas = 0;
+						banana_types[monkey_types[i].food].count = 0;
 					}
 					monkey_types[i].hungry = 0;
 				}
@@ -373,7 +416,7 @@ function monkey_metabolism() {
 }
 
 window.onload = function () {
-	document.getElementById("banana-price").innerHTML = banana_cost.toFixed(2);
+	document.getElementById("banana-price").innerHTML = banana_types[1].cost.toFixed(2);
 	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
 	document.getElementById("happy-type-rate").innerHTML = monkey_types[1].rate.toFixed(2);
 	document.getElementById("angry-type-rate").innerHTML = monkey_types[0].rate.toFixed(2);
