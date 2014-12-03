@@ -388,17 +388,18 @@ function monkey_metabolism() {
 				monkey_types[i].patience = monkey_types[i].patience_max;
 				if (monkey_types[i].hungry > 0) {
 					if (banana_types[monkey_types[i].food].count > monkey_types[i].hungry) {
-						banana_types[monkey_types[i].food].count -= monkey_types[i].hungry;
+						banana_types[monkey_types[i].food].count -= monkey_types[i].hungry;		// All hungry monkeys steal bananas
 						if (monkey_types[i].angry > -1) {
-							monkey_types[i].count -= monkey_types[i].hungry;
+							monkey_types[i].count -= monkey_types[i].hungry;			// All hungry monkeys become angry
 							monkey_types[monkey_types[i].angry].count += monkey_types[i].hungry;
 						}
 					}
 					else {
+						monkey_types[i].hungry -= banana_types[monkey_types[i].food].count;		// Run out of bananas - some monkeys still hungry
 						if (monkey_types[i].angry > -1) {
-							monkey_types[i].count -= banana_types[monkey_types[i].food].count;
-							monkey_types[monkey_types[i].angry].count += banana_types[monkey_types[i].food].count;
+							monkey_types[monkey_types[i].angry].count += banana_types[monkey_types[i].food].count;	// The monkeys that were able to steal bananas become angry
 						}
+						monkey_types[i].count -= monkey_types[i].hungry;				// Monkeys that couldn't steal bananas quit
 						banana_types[monkey_types[i].food].count = 0;
 					}
 					monkey_types[i].hungry = 0;
