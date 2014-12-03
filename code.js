@@ -319,7 +319,6 @@ function unfeed_monkey() {
 function monkey_metabolism() {
 	var char_previous = Math.floor(characters);
 	var i;
-	console.log("METABOLISM!!");
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count < 1) {
 			continue;
@@ -330,7 +329,7 @@ function monkey_metabolism() {
 			monkey_types[i].patience = patience_max;
 		}
 		if (monkey_types[i].stamina > 0) {
-			stamina -= update_speed;
+			monkey_types[i].stamina -= update_speed;
 		}
 		if ((monkey_types[i].stamina <= 0)) {
 			if (!monkey_types[i].are_hungry) {
