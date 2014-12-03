@@ -387,7 +387,7 @@ function monkey_metabolism() {
 				monkey_types[i].stamina = monkey_types[i].stamina_max;
 				monkey_types[i].patience = monkey_types[i].patience_max;
 				if (monkey_types[i].hungry > 0) {
-					if (bananas > monkey_types[i].hungry) {
+					if (banana_types[monkey_types[i].food].count > monkey_types[i].hungry) {
 						banana_types[monkey_types[i].food].count -= monkey_types[i].hungry;
 						if (monkey_types[i].angry > -1) {
 							monkey_types[i].count -= monkey_types[i].hungry;
