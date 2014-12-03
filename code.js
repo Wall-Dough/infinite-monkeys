@@ -114,9 +114,9 @@ var monkey_types = [{
 	hungry: 0,
 	are_hungry: false,
 	stamina_max: 60,
-	stamina: this.stamina_max,
+	stamina: 0,
 	patience_max: 15,
-	patience: this.patience_max,
+	patience: 0,
 	rate: 2 / 3,
 	func: function () {
 		characters += this.count * update_speed * this.rate;
@@ -133,9 +133,9 @@ var monkey_types = [{
 	hungry: 0,
 	are_hungry: false,
 	stamina_max: 120,
-	stamina: this.stamina_max,
+	stamina: 0,
 	patience_max: 30,
-	patience: this.patience_max,
+	patience: 0,
 	rate: 2 / 3,
 	func: function () {
 		characters += this.count * update_speed * this.rate;
@@ -152,9 +152,9 @@ var monkey_types = [{
 	hungry: 0,
 	are_hungry: false,
 	stamina_max: 120,
-	stamina: this.stamina_max,
+	stamina: 0,
 	patience_max: 30,
-	patience: this.patience_max,
+	patience: 0,
 	rate: 2 / 3,
 	func: function () {
 		if (Math.floor(characters * character_worth) > Math.floor(this.count * this.rate * this.update_speed)) {
@@ -178,9 +178,9 @@ var monkey_types = [{
 	hungry: 0,
 	are_hungry: false,
 	stamina_max: 120,
-	stamina: this.stamina_max,
+	stamina: 0,
 	patience_max: 30,
-	patience: this.patience_max,
+	patience: 0,
 	rate: 2 / 3,
 	func: function () {
 		if (Math.floor(this.count * this.rate * update_speed) > Math.floor(money / banana_cost)) {
@@ -204,9 +204,9 @@ var monkey_types = [{
 	hungry: 0,
 	are_hungry: false,
 	stamina_max: 120,
-	stamina: this.stamina_max,
+	stamina: 0,
 	patience_max: 30,
-	patience: this.patience_max,
+	patience: 0,
 	rate: 2 / 3,
 	func: function () {
 		if (Math.floor(this.count * this.rate * update_speed) > bananas) {
@@ -421,6 +421,10 @@ window.onload = function () {
 	document.getElementById("happy-type-rate").innerHTML = monkey_types[1].rate.toFixed(2);
 	document.getElementById("angry-type-rate").innerHTML = monkey_types[0].rate.toFixed(2);
 	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+	for (var i = 0; i < monkey_types.length; i++) {
+		monkey_types[i].stamina = monkey_types[i].stamina_max;
+		monkey_types[i].patience = monkey_types[i].patience_max;
+	}
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
