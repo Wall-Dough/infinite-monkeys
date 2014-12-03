@@ -319,6 +319,7 @@ function unfeed_monkey() {
 function monkey_metabolism() {
 	var char_previous = Math.floor(characters);
 	var i;
+	console.log("METABOLISM!!");
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count < 1) {
 			continue;
