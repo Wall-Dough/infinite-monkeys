@@ -72,9 +72,9 @@ function feed_monkeys(amount) {
 			update_stats();
 			return;
 		}
-		monkey_types[i].count += amount;
-		bananas -= amount;
 	}
+	monkey_types[1].count += amount;
+	bananas -= amount;
 	update_stats();
 }
 
