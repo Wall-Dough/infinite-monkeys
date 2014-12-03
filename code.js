@@ -112,6 +112,7 @@ var monkey_types = [{
 	id: "angry",
 	count: 0,
 	hungry: 0,
+	busy: 0,
 	are_hungry: false,
 	stamina_max: 60,
 	stamina: 0,
@@ -119,7 +120,7 @@ var monkey_types = [{
 	patience: 0,
 	rate: 2 / 3,
 	func: function () {
-		characters += this.count * update_speed * this.rate;
+		characters += this.busy * update_speed * this.rate;
 	},
 	angry: 0,
 	treat: 1,
@@ -131,6 +132,7 @@ var monkey_types = [{
 	id: "happy",
 	count: 0,
 	hungry: 0,
+	busy: 0,
 	are_hungry: false,
 	stamina_max: 120,
 	stamina: 0,
@@ -138,7 +140,7 @@ var monkey_types = [{
 	patience: 0,
 	rate: 2 / 3,
 	func: function () {
-		characters += this.count * update_speed * this.rate;
+		characters += this.busy * update_speed * this.rate;
 	},
 	angry: 0,
 	treat: -1,
@@ -150,6 +152,7 @@ var monkey_types = [{
 	id: "publisher",
 	count: 0,
 	hungry: 0,
+	busy: 0,
 	are_hungry: false,
 	stamina_max: 120,
 	stamina: 0,
@@ -157,8 +160,8 @@ var monkey_types = [{
 	patience: 0,
 	rate: 2 / 3,
 	func: function () {
-		if (Math.floor(characters * character_worth) > Math.floor(this.count * this.rate * this.update_speed)) {
-			earned = Math.floor(this.count * this.rate * this.update_speed);
+		if (Math.floor(characters * character_worth) > Math.floor(this.busy * this.rate * this.update_speed)) {
+			earned = Math.floor(this.busy * this.rate * this.update_speed);
 		}
 		else {
 			earned = Math.floor(characters * character_worth);
@@ -176,6 +179,7 @@ var monkey_types = [{
 	id: "buyer",
 	count: 0,
 	hungry: 0,
+	busy: 0,
 	are_hungry: false,
 	stamina_max: 120,
 	stamina: 0,
@@ -183,11 +187,11 @@ var monkey_types = [{
 	patience: 0,
 	rate: 2 / 3,
 	func: function () {
-		if (Math.floor(this.count * this.rate * update_speed) > Math.floor(money / banana_cost)) {
+		if (Math.floor(this.busy * this.rate * update_speed) > Math.floor(money / banana_cost)) {
 			buy = Math.floor(money / banana_cost);
 		}
 		else {
-			buy = Math.floor(this.count * this.rate * update_speed);
+			buy = Math.floor(this.busy * this.rate * update_speed);
 		}
 		money -= buy * banana_cost;
 		bananas += buy;
@@ -202,6 +206,7 @@ var monkey_types = [{
 	id: "feeding",
 	count: 0,
 	hungry: 0,
+	busy: 0,
 	are_hungry: false,
 	stamina_max: 120,
 	stamina: 0,
@@ -209,8 +214,8 @@ var monkey_types = [{
 	patience: 0,
 	rate: 2 / 3,
 	func: function () {
-		if (Math.floor(this.count * this.rate * update_speed) > bananas) {
-			feed = Math.floor(this.count * this.rate * update_speed);
+		if (Math.floor(this.busy * this.rate * update_speed) > bananas) {
+			feed = Math.floor(this.busy * this.rate * update_speed);
 		}
 		else {
 			feed = bananas;
@@ -366,6 +371,7 @@ function monkey_metabolism() {
 		if (monkey_types[i].count < 1) {
 			continue;
 		}
+		monkey_types[i].busy = monkey_types[i].count - monkey_types[i].hungry;
 		monkey_types[i].func();
 		if (monkey_types[i].count < 1) {
 			monkey_types[i].stamina = monkey_types[i].stamina_max;
