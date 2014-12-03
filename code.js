@@ -368,8 +368,8 @@ function monkey_metabolism() {
 		}
 		monkey_types[i].func();
 		if (monkey_types[i].count < 1) {
-			monkey_types[i].stamina = stamina_max;
-			monkey_types[i].patience = patience_max;
+			monkey_types[i].stamina = monkey_types[i].stamina_max;
+			monkey_types[i].patience = monkey_types[i].patience_max;
 		}
 		if (monkey_types[i].stamina > 0) {
 			monkey_types[i].stamina -= update_speed;
