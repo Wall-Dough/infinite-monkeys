@@ -361,6 +361,11 @@ function monkey_metabolism() {
 					monkey_types[i].hungry = 0;
 				}
 			}
+			if (monkey_types[i].hungry <= 0) {
+				monkey_types[i].are_hungry = false;
+				monkey_types[i].stamina = monkey_types[i].stamina_max;
+				monkey_types[i].patience = monkey_types[i].patience_max;
+			}
 		}
 	}
 	add_to_stream(Math.floor(characters) - char_previous);
