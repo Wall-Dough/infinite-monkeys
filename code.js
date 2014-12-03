@@ -143,7 +143,7 @@ var monkey_types = [{
 	angry: 0,
 	treat: -1,
 	happy: -1,
-	hire: 0,
+	hire: 1,
 	food: 1
 }, {
 	name: "Publisher Monkeys",
