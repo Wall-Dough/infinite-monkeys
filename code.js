@@ -462,5 +462,6 @@ window.onload = function () {
 			}
 			keyboard_type(char);
 		}
+		return !(key == 32);
 	}
 }
