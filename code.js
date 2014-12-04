@@ -461,6 +461,7 @@ window.onload = function () {
 			if (shift) {
 				char = char.toUpperCase();
 			}
+			keyboard_type(char);
 		}
 	}
 }
