@@ -6,6 +6,7 @@ var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
+var shift = false;
 
 // Recipes for the Banananator 9000
 // - = TODO = => Add more recipes
@@ -442,11 +443,24 @@ window.onload = function () {
 		monkey_types[i].stamina = monkey_types[i].stamina_max;
 		monkey_types[i].patience = monkey_types[i].patience_max;
 	}
+	window.onkeyup = function(e) {
+		var key = e.keyCode ? e.keyCode : e.which;
+		var i = char_codes.indexOf(key);
+		if (i == 16) {
+			shift = false;
+		}
+	}
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
-		if (i != -1) {
-			keyboard_type(char_list[i]);
+		if (i == 16) {
+			shift = true;
+		}
+		else if (i != -1) {
+			var char = char_list[i];
+			if (shift) {
+				char = char.toUpperCase();
+			}
 		}
 	}
 }
