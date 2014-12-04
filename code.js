@@ -445,15 +445,14 @@ window.onload = function () {
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
-		var i = char_codes.indexOf(key);
-		if (i == 16) {
+		if (key == 16) {
 			shift = false;
 		}
 	}
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
-		if (i == 16) {
+		if (key == 16) {
 			shift = true;
 		}
 		else if (i != -1) {
