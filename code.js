@@ -7,10 +7,16 @@ var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 
+// Recipes for the Banananator 9000
+// - = TODO = => Add more recipes
 var banana_recipes = [
 	[0, 0, 0]	
 ];
 
+// Banana types
+// Each type of banana will have a different effect on each monkey
+// - = TODO = => Add ripening
+//            => Add more bananas
 var banana_types = [ {
 	name: "Green Banana",
 	ripe_time_max: 30,
@@ -51,6 +57,7 @@ function feed_monkeys(type, amount) {
 	}
 	var i;
 	var to_feed;
+	// Hungry monkeys are fed first
 	for (i = 0; i < monkey_types.length; i++) {
 		if (type != monkey_types[i].food) {
 			continue;
@@ -72,6 +79,7 @@ function feed_monkeys(type, amount) {
 			}
 		}
 	}
+	// Monkeys are given treats second
 	for (i = 0; i < monkey_types.length; i++) {
 		if (type != monkey_types[i].treat) {
 			continue;
@@ -96,6 +104,7 @@ function feed_monkeys(type, amount) {
 			return;
 		}
 	}
+	// Monkeys are hired third
 	for (i = 0; i < monkey_types.length; i++) {
 		if (type != monkey_types[i].hire) {
 			continue;
@@ -107,6 +116,7 @@ function feed_monkeys(type, amount) {
 	update_stats();
 }
 
+// Monkey Types
 var monkey_types = [{
 	name: "Angry Monkeys",
 	id: "angry",
