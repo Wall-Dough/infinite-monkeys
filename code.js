@@ -6,6 +6,10 @@ var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
+var pressed = [];
+for (var i = 0; i < char_codes.length; i++) {
+	pressed[i] = false;
+}
 var shift = false;
 
 // Recipes for the Banananator 9000
@@ -445,6 +449,12 @@ window.onload = function () {
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
+		var i = char_codes.indexOf(key);
+		if (i != -1) {
+			if (pressed[i]) {
+				pressed[i] = false;
+			}
+		}
 		if (key == 16) {
 			shift = false;
 		}
@@ -456,11 +466,14 @@ window.onload = function () {
 			shift = true;
 		}
 		else if (i != -1) {
-			var char = char_list[i];
-			if (shift) {
-				char = char.toUpperCase();
+			if (!pressed[i]) {
+				pressed[i] = true;
+				var char = char_list[i];
+				if (shift) {
+					char = char.toUpperCase();
+				}
+				keyboard_type(char);
 			}
-			keyboard_type(char);
 		}
 		return !(key == 32);
 	}
