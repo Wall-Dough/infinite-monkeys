@@ -1,7 +1,7 @@
 var characters = 0;
 var money = 0;
 var character_worth = 0.25;
-var update_speed = 0.5;
+var update_speed = 0.1;
 var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
