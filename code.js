@@ -456,6 +456,9 @@ window.onload = function () {
 				pressed[i] = false;
 			}
 		}
+		if (key == 13) {
+			enter = false;
+		}
 		if (key == 16) {
 			shift = false;
 		}
@@ -468,6 +471,7 @@ window.onload = function () {
 		}
 		if ((key == 13) && (!enter)) {
 			enter = true;
+			publish();
 		}
 		else if (i != -1) {
 			if (!pressed[i]) {
