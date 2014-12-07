@@ -303,7 +303,7 @@ function add_monkey(i) {
 	var div_hungry_bar = document.createElement("div");
 	div_hungry_bar.setAttribute("id", monkey_types[i].id + "-hungry-bar");
 	div_hungry_bar_box.appendChild(div_hungry_bar);
-	td_tr2.appendChild(div_hungry_bar_box);
+	td2_tr2.appendChild(div_hungry_bar_box);
 	tr2_body.appendChild(td2_tr2);
 	var td3_tr2 = document.createElement("td");
 	var span_busy = document.createElement("span");
