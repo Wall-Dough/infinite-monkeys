@@ -319,6 +319,13 @@ function add_monkey(i) {
 	
 	tbody.appendChild(tr2_body);
 	table.appendChild(tbody);
+	var monkey_div = document.getElementById(monkey_types[i].id);
+	monkey_div.appendChild(table):
+}
+
+function remove_monkey(i) {
+	var monkey_div = document.getElementById(monkey_types[i].id);
+	monkey_div.innerHTML = "";
 }
 
 function update_stats() {
@@ -326,51 +333,37 @@ function update_stats() {
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	document.getElementById("bananas-value").innerHTML = banana_types[1].count;
-	var bar_size = Math.floor(monkey_types[1].hungry / monkey_types[1].count * 100);
-	document.getElementById("hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("busy-happy-value").innerHTML = monkey_types[1].count - monkey_types[1].hungry;
-	document.getElementById("happy-value").innerHTML = monkey_types[1].count;
-	bar_size = Math.floor(monkey_types[0].hungry / monkey_types[0].count * 100);
-	document.getElementById("hangry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	document.getElementById("busy-angry-value").innerHTML = monkey_types[0].count - monkey_types[0].hungry;
-	document.getElementById("angry-value").innerHTML = monkey_types[0].count;
-	if ((!monkey_types[1].are_hungry) && (monkey_types[1].count > 0)) {
-		document.getElementById("happy-timer").innerHTML = Math.floor(monkey_types[1].stamina);
-		var bar_size = Math.floor(monkey_types[1].stamina / monkey_types[1].stamina_max * 100);
-		document.getElementById("happy-timer-bar").setAttribute("class", "green");
-		document.getElementById("happy-timer-bar-box").setAttribute("class", "yellow");
-		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	}
-	if ((!monkey_types[0].are_hungry) && (monkey_types[0].count > 0)) {
-		document.getElementById("angry-timer").innerHTML = Math.floor(monkey_types[0].stamina);
-		var bar_size = Math.floor(monkey_types[0].stamina / monkey_types[0].stamina_max * 100);
-		document.getElementById("angry-timer-bar").setAttribute("class", "green");
-		document.getElementById("angry-timer-bar-box").setAttribute("class", "yellow");
-		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-	}
-	if (monkey_types[1].are_hungry) {
-		var bar_size = Math.floor(monkey_types[1].patience / monkey_types[1].patience_max * 100);
-		document.getElementById("happy-timer-bar").setAttribute("class", "yellow");
-		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
-		document.getElementById("happy-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-		document.getElementById("happy-timer").innerHTML = Math.floor(monkey_types[1].patience);
-	}
-	if (monkey_types[0].are_hungry) {
-		var bar_size = Math.floor(monkey_types[0].patience / monkey_types[0].max * 100);
-		document.getElementById("angry-timer-bar").setAttribute("class", "yellow");
-		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
-		document.getElementById("angry-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
-		document.getElementById("angry-timer").innerHTML = Math.floor(monkey_types[0].patience);
-	}
-	if (monkey_types[1].count == 0) {
-		document.getElementById("happy-timer-bar").setAttribute("style", "width: 0;");
-		document.getElementById("happy-timer-bar-box").setAttribute("class", "red");
-		document.getElementById("happy-timer").innerHTML = "--";
-	}
-	if (monkey_types[0].count == 0) {
-		document.getElementById("angry-timer-bar").setAttribute("style", "width: 0;");
-		document.getElementById("angry-timer-bar-box").setAttribute("class", "red");
-		document.getElementById("angry-timer").innerHTML = "--";
+	for (var i = 0; i < monkey_types.length; i++) {
+		if (monkey_types[i].count > 0) {
+			var monkey_table = document.getElementById(monkey_types.id + "-table");
+			if (typeof monkey_table === 'undefined') {
+				add_monkey(i);
+			}
+			var bar_size = Math.floor(monkey_types[i].hungry / monkey_types[i].count * 100);
+			document.getElementById(monkey_types[i].id + "-hungry-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
+			document.getElementById(monkey_types[i].id + "-busy-value").innerHTML = monkey_types[i].count - monkey_types[i].hungry;
+			document.getElementById(monkey_types[i].id + "-value").innerHTML = monkey_types[i].count;
+			if ((!monkey_types[i].are_hungry)) {
+				document.getElementById(monkey_types[i].id + "-timer").innerHTML = Math.floor(monkey_types[i].stamina);
+				var bar_size = Math.floor(monkey_types[i].stamina / monkey_types[i].stamina_max * 100);
+				document.getElementById(monkey_types[i].id + "-timer-bar").setAttribute("class", "green");
+				document.getElementById(monkey_types[i].id + "-timer-bar-box").setAttribute("class", "yellow");
+				document.getElementById(monkey_types[i].id + "-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
+			}
+			if (monkey_types[i].are_hungry) {
+				var bar_size = Math.floor(monkey_types[i].patience / monkey_types[i].patience_max * 100);
+				document.getElementById(monkey_types[i].id + "-timer-bar").setAttribute("class", "yellow");
+				document.getElementById(monkey_types[i].id + "-timer-bar-box").setAttribute("class", "red");
+				document.getElementById(monkey_types[i].id + "-timer-bar").setAttribute("style", "width: " + bar_size.toString() + "%;");
+				document.getElementById(monkey_types[i].id + "-timer").innerHTML = Math.floor(monkey_types[i].patience);
+			}
+		}
+		else {
+			var monkey_table = document.getElementById(monkey_types.id + "-table");
+			if (typeof monkey_table !== 'undefined') {
+				remove_monkey(i);
+			}
+		}
 	}
 }
 
