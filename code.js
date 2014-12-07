@@ -314,7 +314,7 @@ function add_monkey(i) {
 	var span_total = document.createElement("span");
 	span_total.setAttribute("id", monkey_types[i].id + "-value");
 	span_total.innerHTML = monkey_types[i].count;
-	td2_tr2.appendChild(span_total);
+	td3_tr2.appendChild(span_total);
 	tr2_body.appendChild(td3_tr2);
 	
 	tbody.appendChild(tr2_body);
