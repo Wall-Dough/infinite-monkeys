@@ -336,7 +336,7 @@ function update_stats() {
 	for (var i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count > 0) {
 			var monkey_table = document.getElementById(monkey_types.id + "-table");
-			if (typeof monkey_table === 'undefined') {
+			if (!monkey_table) {
 				add_monkey(i);
 			}
 			var bar_size = Math.floor(monkey_types[i].hungry / monkey_types[i].count * 100);
@@ -360,7 +360,7 @@ function update_stats() {
 		}
 		else {
 			var monkey_table = document.getElementById(monkey_types.id + "-table");
-			if (typeof monkey_table !== 'undefined') {
+			if (!!monkey_table) {
 				remove_monkey(i);
 			}
 		}
