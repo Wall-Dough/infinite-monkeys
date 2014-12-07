@@ -12,6 +12,7 @@ for (var i = 0; i < char_codes.length; i++) {
 	pressed[i] = false;
 }
 var shift = false;
+var tab = false;
 
 // Recipes for the Banananator 9000
 // - = TODO = => Add more recipes
@@ -462,6 +463,9 @@ window.onload = function () {
 		if (key == 16) {
 			shift = false;
 		}
+		if (key == 9) {
+			tab = false;
+		}
 	}
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
@@ -472,6 +476,13 @@ window.onload = function () {
 		if ((key == 13) && (!enter)) {
 			enter = true;
 			publish();
+		}
+		if ((key == 9) && (!tab)) {
+			tab = true;
+			buy_banana();
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
 		}
 		else if (i != -1) {
 			if (!pressed[i]) {
