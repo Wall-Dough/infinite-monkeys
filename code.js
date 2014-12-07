@@ -359,7 +359,7 @@ function update_stats() {
 			}
 		}
 		else {
-			var monkey_table = document.getElementById(monkey_types.id + "-table");
+			var monkey_table = document.getElementById(monkey_types[i].id + "-table");
 			if (!!monkey_table != null) {
 				remove_monkey(i);
 			}
