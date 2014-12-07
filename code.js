@@ -320,7 +320,7 @@ function add_monkey(i) {
 	tbody.appendChild(tr2_body);
 	table.appendChild(tbody);
 	var monkey_div = document.getElementById(monkey_types[i].id);
-	monkey_div.appendChild(table):
+	monkey_div.appendChild(table);
 }
 
 function remove_monkey(i) {
