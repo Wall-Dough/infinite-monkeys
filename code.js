@@ -302,6 +302,7 @@ function add_monkey(i) {
 	div_hungry_bar_box.setAttribute("id", monkey_types[i].id + "-hungry-bar-box");
 	var div_hungry_bar = document.createElement("div");
 	div_hungry_bar.setAttribute("id", monkey_types[i].id + "-hungry-bar");
+	div_hungry_bar.setAttribute("style", "width: 100%");
 	div_hungry_bar_box.appendChild(div_hungry_bar);
 	td2_tr2.appendChild(div_hungry_bar_box);
 	tr2_body.appendChild(td2_tr2);
