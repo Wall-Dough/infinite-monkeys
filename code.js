@@ -335,7 +335,7 @@ function update_stats() {
 	document.getElementById("bananas-value").innerHTML = banana_types[1].count;
 	for (var i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count > 0) {
-			var monkey_table = document.getElementById(monkey_types.id + "-table");
+			var monkey_table = document.getElementById(monkey_types[i].id + "-table");
 			if (monkey_table == null) {
 				add_monkey(i);
 			}
