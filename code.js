@@ -477,11 +477,18 @@ window.onload = function () {
 			enter = true;
 			publish();
 		}
-		if ((key == 9) && (!tab)) {
-			tab = true;
-			buy_banana();
+		if (key == 9) {
 			if (e.preventDefault) {
 				e.preventDefault();
+			}
+			if (!tab) {
+				tab = true;
+				if (shift) {
+					feed_monkey();
+				}
+				else {
+					buy_banana();
+				}
 			}
 		}
 		else if (i != -1) {
