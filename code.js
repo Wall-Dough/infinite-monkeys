@@ -502,9 +502,13 @@ window.onload = function () {
 	document.getElementById("banana-price").innerHTML = banana_types[1].cost.toFixed(2);
 	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
 	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+	var monkey_div = document.getElementById("monkey-div");
 	for (var i = 0; i < monkey_types.length; i++) {
 		monkey_types[i].stamina = monkey_types[i].stamina_max;
 		monkey_types[i].patience = monkey_types[i].patience_max;
+		var monkey_type_div = document.createElement("div");
+		monkey_type_div.setAttribute("id", monkey_types[i].id);
+		monkey_div.appendChild(monkey_type_div);
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
