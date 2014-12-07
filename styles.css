@@ -23,13 +23,13 @@ body {
     background-color: firebrick;
 }
 
-#hungry-bar-box, #hangry-bar-box {
+#happy-hungry-bar-box, #angry-hungry-bar-box {
     width: 100px;
     height: 10px;
     background-color: saddlebrown;
 }
 
-#hungry-bar, #hangry-bar {
+#happy-hungry-bar, #angry-hungry-bar {
     height: 100%;
     background-color: sandybrown;
 }
