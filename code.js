@@ -336,10 +336,7 @@ function remove_monkey(i) {
 }
 
 function add_banana(i) {
-	var banana_div = document.getElementById(banana_types[i].id);
-	var table = document.createElement("table");
-	table.setAttribute("border", "1");
-	var tr = document.createElement("tr");
+	var banana_tr = document.getElementById(banana_types[i].id);
 	var td1 = document.createElement("td");
 	td1.innerHTML = banana_types[i].name;
 	tr.appendChild(td1);
@@ -348,14 +345,12 @@ function add_banana(i) {
 	tr.appendChild(td2);
 	var td3 = document.createElement("td");
 	td3.innerHTML = banana_types[i].ripe_time.toString() + "s until ripe";
-	tr.appendChild(td3);
-	table.appendChild(tr);
-	banana_div.appendChild(table);
+	banana_tr.appendChild(td3);
 }
 
 function remove_banana(i) {
-	var banana_div = document.getElementById(banana_types[i].id);
-	banana_div.innerHTML = "";
+	var banana_tr = document.getElementById(banana_types[i].id);
+	banana_tr.innerHTML = "";
 }
 
 function update_stats() {
@@ -533,11 +528,11 @@ window.onload = function () {
 		monkey_type_div.setAttribute("id", monkey_types[i].id);
 		monkey_div.appendChild(monkey_type_div);
 	}
-	var banana_div = document.getElementById("banana-div");
+	var banana_table = document.getElementById("banana-table");
 	for (var i = 0; i < banana_types.length; i++) {
-		var banana_type_div = document.createElement("div");
-		banana_type_div.setAttribute("id", banana_types[i].id);
-		banana_div.appendChild(banana_type_div);
+		var banana_type_tr = document.createElement("tr");
+		banana_type_tr.setAttribute("id", banana_types[i].id);
+		banana_table.appendChild(banana_type_tr);
 		add_banana(i);
 	}
 	window.onkeyup = function(e) {
