@@ -50,6 +50,7 @@ var banana_types = [ {
 	cost: 0.19
 }, {
 	name: "Fertilizer Banana",
+	id: "fertilizer",
 	ripe_time_max: -1,
 	ripe_time: -1,
 	ripe: -1,
