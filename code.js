@@ -339,10 +339,10 @@ function add_banana(i) {
 	var banana_tr = document.getElementById(banana_types[i].id);
 	var td1 = document.createElement("td");
 	td1.innerHTML = banana_types[i].name;
-	tr.appendChild(td1);
+	banana_tr.appendChild(td1);
 	var td2 = document.createElement("td");
 	td2.innerHTML = "x " + banana_types[i].count.toString();
-	tr.appendChild(td2);
+	banana_tr.appendChild(td2);
 	var td3 = document.createElement("td");
 	td3.innerHTML = banana_types[i].ripe_time.toString() + "s until ripe";
 	banana_tr.appendChild(td3);
