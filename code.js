@@ -337,7 +337,7 @@ function remove_monkey(i) {
 
 function add_banana(i) {
 	var banana_tr = document.getElementById(banana_types[i].id);
-	banana_tr.setAttribute("border", "1");
+	banana_tr.setAttribute("style", "border: 1px solid black");
 	var td1 = document.createElement("td");
 	td1.innerHTML = banana_types[i].name;
 	banana_tr.appendChild(td1);
@@ -351,7 +351,7 @@ function add_banana(i) {
 
 function remove_banana(i) {
 	var banana_tr = document.getElementById(banana_types[i].id);
-	banana_tr.setAttribute("border", "0");
+	banana_tr.setAttribute("style", "");
 	banana_tr.innerHTML = "";
 }
 
