@@ -28,7 +28,7 @@ var banana_types = [ {
 	name: "Green Banana",
 	id: "green",
 	ripe_time_max: 30,
-	ripe_time: this.ripe_time_max,
+	ripe_time: 30,
 	ripe: 1,
 	count: 0,
 	cost: 0.19
