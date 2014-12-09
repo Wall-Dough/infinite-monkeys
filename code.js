@@ -26,6 +26,7 @@ var banana_recipes = [
 //            => Add more bananas
 var banana_types = [ {
 	name: "Green Banana",
+	id: "green",
 	ripe_time_max: 30,
 	ripe_time: this.ripe_time_max,
 	ripe: 1,
@@ -33,6 +34,7 @@ var banana_types = [ {
 	cost: 0.19
 }, {
 	name: "Regular Banana",
+	id: "regular",
 	ripe_time_max: 120,
 	ripe_time: this.ripe_time_max,
 	ripe: 2,
@@ -40,6 +42,7 @@ var banana_types = [ {
 	cost: 0.19
 }, {
 	name: "Rotten Banana",
+	id: "rotten",
 	ripe_time_max: 60,
 	ripe_time: this.ripe_time_max,
 	ripe: 3,
@@ -331,6 +334,28 @@ function remove_monkey(i) {
 	monkey_div.innerHTML = "";
 }
 
+function add_banana(i) {
+	var banana_div = document.getElementById(banana_types[i].id);
+	var table = document.createElement("table");
+	var tr = document.createElement("tr");
+	var td1 = document.createElement("td");
+	td1.innerHTML = banana_types[i].name;
+	tr.appendChild(td1);
+	var td2 = document.createElement("td");
+	td2.innerHTML = "x " + banana_types[i].count.toString();
+	tr.appendChild(td2);
+	var td3 = document.createElement("td");
+	td3.innerHTML = banana_types[i].ripe_time.toString() + "s until ripe";
+	tr.appendChild(td3);
+	table.appendChild(tr);
+	banana_div.appendChild(table);
+}
+
+function remove_banana(i) {
+	var banana_div = document.getElementById(banana_types[i].id);
+	banana_div.innerHTML = "";
+}
+
 function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
 	document.getElementById("stream").innerHTML = stream;
@@ -505,6 +530,13 @@ window.onload = function () {
 		var monkey_type_div = document.createElement("div");
 		monkey_type_div.setAttribute("id", monkey_types[i].id);
 		monkey_div.appendChild(monkey_type_div);
+	}
+	var banana_div = document.getElementById("banana-div");
+	for (var i = 0; i < banana_types.length; i++) {
+		var banana_type_div = document.createElement("div");
+		banana_type_div.setAttribute("id", banana_types[i].id);
+		banana_div.appendChild(banana_type_div);
+		add_banana(i);
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
