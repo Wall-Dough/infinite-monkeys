@@ -55,6 +55,8 @@ var banana_types = [ {
 }
 ];
 
+var base_rate = Math.floor(banana_types[1].cost * character_worth * 1000) / 10;
+
 function feed_monkeys(type, amount) {
 	if (amount > banana_types[type].count) {
 		amount = banana_types[type].count;
@@ -135,7 +137,7 @@ var monkey_types = [{
 	stamina: 0,
 	patience_max: 15,
 	patience: 0,
-	rate: 2 / 3,
+	rate: base_rate,
 	func: function () {
 		characters += this.busy * update_speed * this.rate;
 	},
@@ -155,7 +157,7 @@ var monkey_types = [{
 	stamina: 0,
 	patience_max: 30,
 	patience: 0,
-	rate: 2 / 3,
+	rate: base_rate,
 	func: function () {
 		characters += this.busy * update_speed * this.rate;
 	},
