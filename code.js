@@ -361,8 +361,17 @@ function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
+	var i;
+	for (i = 0; i < banana_types.length; i++) {
+		if (banana_types[i].count > 0) {
+			var banana_tr = document.getElementById(monkey_types[i].id + "-tr");
+			if (banana_tr.innerHTML === "") {
+				add_banana(i);
+			}
+		}
+	}
 	document.getElementById("bananas-value").innerHTML = banana_types[1].count;
-	for (var i = 0; i < monkey_types.length; i++) {
+	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count > 0) {
 			var monkey_table = document.getElementById(monkey_types[i].id + "-table");
 			if (monkey_table == null) {
@@ -537,7 +546,6 @@ window.onload = function () {
 		var banana_type_tr = document.createElement("tr");
 		banana_type_tr.setAttribute("id", banana_types[i].id);
 		banana_table.appendChild(banana_type_tr);
-		add_banana(i);
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
