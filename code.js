@@ -338,6 +338,7 @@ function remove_monkey(i) {
 function add_banana(i) {
 	var banana_div = document.getElementById(banana_types[i].id);
 	var table = document.createElement("table");
+	table.setAttribute("border", "1");
 	var tr = document.createElement("tr");
 	var td1 = document.createElement("td");
 	td1.innerHTML = banana_types[i].name;
