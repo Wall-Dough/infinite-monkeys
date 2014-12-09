@@ -36,7 +36,7 @@ var banana_types = [ {
 	name: "Regular Banana",
 	id: "regular",
 	ripe_time_max: 120,
-	ripe_time: this.ripe_time_max,
+	ripe_time: 120,
 	ripe: 2,
 	count: 0,
 	cost: 0.19
@@ -44,14 +44,14 @@ var banana_types = [ {
 	name: "Rotten Banana",
 	id: "rotten",
 	ripe_time_max: 60,
-	ripe_time: this.ripe_time_max,
+	ripe_time: 60,
 	ripe: 3,
 	count: 0,
 	cost: 0.19
 }, {
 	name: "Fertilizer Banana",
 	ripe_time_max: -1,
-	ripe_time: this.ripe_time_max,
+	ripe_time: -1,
 	ripe: -1,
 	count: 0,
 	cost: 0.19
