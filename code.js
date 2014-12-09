@@ -535,6 +535,7 @@ window.onload = function () {
 		var banana_type_tr = document.createElement("tr");
 		banana_type_tr.setAttribute("id", banana_types[i].id);
 		banana_table.appendChild(banana_type_tr);
+		add_banana(i);
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
