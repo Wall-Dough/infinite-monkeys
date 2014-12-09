@@ -1,6 +1,6 @@
 var characters = 0;
 var money = 0;
-var character_worth = 0.25;
+var character_worth = 0.10;
 var update_speed = 0.1;
 var stream = "";
 var stream_max = 50;
