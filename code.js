@@ -544,7 +544,7 @@ window.onload = function () {
 	var banana_table = document.getElementById("banana-table");
 	for (var i = 0; i < banana_types.length; i++) {
 		var banana_type_tr = document.createElement("tr");
-		banana_type_tr.setAttribute("id", banana_types[i].id);
+		banana_type_tr.setAttribute("id", banana_types[i].id + "-tr");
 		banana_table.appendChild(banana_type_tr);
 	}
 	window.onkeyup = function(e) {
