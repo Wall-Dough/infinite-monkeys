@@ -377,7 +377,7 @@ function update_stats() {
 				add_banana(i);
 			}
 			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
-			document.getElementById(banana_types[i].id + "-ripe-time").innerHTML = banana_types[i].ripe_time.toString();
+			document.getElementById(banana_types[i].id + "-ripe-time").innerHTML = Math.floor(banana_types[i].ripe_time).toString();
 		}
 		else {
 			remove_banana(i);
