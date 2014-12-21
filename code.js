@@ -343,7 +343,7 @@ function add_banana(i) {
 	banana_tr.appendChild(td1);
 	var td2 = document.createElement("td");
 	td2.setAttribute("style", "border: 1px solid black");
-	td2.innerHTML = "x " + banana_types[i].count.toString();
+	td2.innerHTML = "x ";
 	var count_span = document.createElement("span");
 	count_span.setAttribute("id", banana_types[i].id + "-count");
 	count_span.innerHTML = banana_types[i].count.toString();
