@@ -364,7 +364,7 @@ function update_stats() {
 	var i;
 	for (i = 0; i < banana_types.length; i++) {
 		if (banana_types[i].count > 0) {
-			var banana_tr = document.getElementById(monkey_types[i].id + "-tr");
+			var banana_tr = document.getElementById(banana_types[i].id + "-tr");
 			if (banana_tr.innerHTML === "") {
 				add_banana(i);
 			}
