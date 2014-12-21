@@ -344,6 +344,10 @@ function add_banana(i) {
 	var td2 = document.createElement("td");
 	td2.setAttribute("style", "border: 1px solid black");
 	td2.innerHTML = "x " + banana_types[i].count.toString();
+	var count_span = document.createElement("span");
+	count_span.setAttribute(banana_types[i].id + "-count");
+	count_span.innerHTML = banana_types[i].count.toString();
+	td2.appendChild(count_span);
 	banana_tr.appendChild(td2);
 	var td3 = document.createElement("td");
 	td3.setAttribute("style", "border: 1px solid black");
@@ -370,7 +374,6 @@ function update_stats() {
 			}
 		}
 	}
-	document.getElementById("bananas-value").innerHTML = banana_types[1].count;
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count > 0) {
 			var monkey_table = document.getElementById(monkey_types[i].id + "-table");
