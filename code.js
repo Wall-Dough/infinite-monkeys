@@ -345,7 +345,7 @@ function add_banana(i) {
 	td2.setAttribute("style", "border: 1px solid black");
 	td2.innerHTML = "x " + banana_types[i].count.toString();
 	var count_span = document.createElement("span");
-	count_span.setAttribute(banana_types[i].id + "-count");
+	count_span.setAttribute("id", banana_types[i].id + "-count");
 	count_span.innerHTML = banana_types[i].count.toString();
 	td2.appendChild(count_span);
 	banana_tr.appendChild(td2);
