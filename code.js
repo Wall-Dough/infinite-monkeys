@@ -372,6 +372,7 @@ function update_stats() {
 			if (banana_tr.innerHTML === "") {
 				add_banana(i);
 			}
+			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
 		}
 	}
 	for (i = 0; i < monkey_types.length; i++) {
