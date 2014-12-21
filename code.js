@@ -374,6 +374,9 @@ function update_stats() {
 			}
 			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
 		}
+		else {
+			remove_banana(i);
+		}
 	}
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count > 0) {
