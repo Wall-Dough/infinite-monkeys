@@ -351,7 +351,11 @@ function add_banana(i) {
 	banana_tr.appendChild(td2);
 	var td3 = document.createElement("td");
 	td3.setAttribute("style", "border: 1px solid black");
-	td3.innerHTML = banana_types[i].ripe_time.toString() + "s until ripe";
+	var ripe_time_span = document.createElement("span");
+	ripe_time_span.setAttribute("id", banana_types[i].id + "-ripe-time");
+	ripe_time_span.innerHTML = banana_types[i].ripe_time.toString();
+	td3.appendChild(ripe_time_span);
+	td3.innerHTML += "s until ripe";
 	banana_tr.appendChild(td3);
 }
 
@@ -373,6 +377,7 @@ function update_stats() {
 				add_banana(i);
 			}
 			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
+			document.getElementById(banana_types[i].id + "-ripe-time").innerHTML = banana_types[i].ripe_time.toString();
 		}
 		else {
 			remove_banana(i);
