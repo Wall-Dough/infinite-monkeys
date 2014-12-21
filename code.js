@@ -471,7 +471,7 @@ function buy_banana_type(type, amount) {
 }
 
 function buy_banana() {
-	buy_banana_type(1, 1);
+	buy_banana_type(0, 1);
 }
 
 function feed_monkey() {
@@ -481,6 +481,21 @@ function feed_monkey() {
 function monkey_metabolism() {
 	var char_previous = Math.floor(characters);
 	var i;
+	for (i = 0; i < banana_types.length; i++) {
+		if (banana_types[i].count < 1) {
+			continue;
+		}
+		if (banana_types[i].ripe >= 0) {
+			if (banana_types[i].ripe_time > 0) {
+				banana_types[i].ripe_time -= update_speed;
+			}
+			if (banana_types[i].ripe_time <= 0) {
+				banana_types[banana_types[i].ripe].count += banana_types[i].count;
+				banana_types[i].count = 0;
+				banana_types[i].ripe_time = banana_types[i].ripe_time_max;
+			}
+		}
+	}
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count < 1) {
 			continue;
