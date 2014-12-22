@@ -8,6 +8,7 @@ var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 var pressed = [];
 var enter = false;
+var time_previous = 0;
 for (var i = 0; i < char_codes.length; i++) {
 	pressed[i] = false;
 }
@@ -486,8 +487,13 @@ function feed_monkey() {
 function monkey_metabolism() {
 	var date = new Date();
 	var time = date.getTime();
-	update_speed = time - time_previous;
-	update_speed /= 1000;
+	if (time_previous == 0) {
+		time_previous = time;
+	}
+	else {
+		update_speed = time - time_previous;
+		update_speed /= 1000;
+	}
 	var char_previous = Math.floor(characters);
 	var i;
 	for (i = 0; i < banana_types.length; i++) {
