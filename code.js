@@ -2,6 +2,7 @@ var characters = 0;
 var money = 0;
 var character_worth = 0.10;
 var update_speed = 0.1;
+var speed_target = 0.1;
 var stream = "";
 var stream_max = 50;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
@@ -568,7 +569,7 @@ function monkey_metabolism() {
 window.onload = function () {
 	document.getElementById("banana-price").innerHTML = banana_types[1].cost.toFixed(2);
 	document.getElementById("character-worth").innerHTML = character_worth.toFixed(2);
-	var metab_interval = setInterval(monkey_metabolism, 1000 * update_speed);
+	var metab_interval = setInterval(monkey_metabolism, 1000 * speed_target);
 	var monkey_div = document.getElementById("monkey-div");
 	for (var i = 0; i < monkey_types.length; i++) {
 		monkey_types[i].stamina = monkey_types[i].stamina_max;
