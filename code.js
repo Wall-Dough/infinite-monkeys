@@ -487,14 +487,12 @@ function feed_monkey() {
 function monkey_metabolism() {
 	var date = new Date();
 	var time = date.getTime();
-	if (time_previous == 0) {
-		time_previous = time;
-	}
-	else {
+	if (time_previous > 0) {
 		update_speed = time - time_previous;
 		update_speed /= 1000;
 		console.log(update_speed);
 	}
+	time_previous = time;
 	var char_previous = Math.floor(characters);
 	var i;
 	for (i = 0; i < banana_types.length; i++) {
