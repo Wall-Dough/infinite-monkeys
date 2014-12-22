@@ -493,6 +493,7 @@ function monkey_metabolism() {
 	else {
 		update_speed = time - time_previous;
 		update_speed /= 1000;
+		console.log(update_speed);
 	}
 	var char_previous = Math.floor(characters);
 	var i;
