@@ -5,9 +5,66 @@ var update_speed = 0.1;
 var speed_target = 0.1;
 var stream = "";
 var stream_max = 50;
+var selected_banana = 0;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 var pressed = [];
+// A map to special_keys
+var key_i = {
+	up: 0,
+	down: 1,
+	left: 2,
+	right: 3,
+	shift: 4,
+	enter: 5,
+	tab: 6
+};
+// An easy way to handle important key presses
+// Can loop through array and check for press at each element
+// Function is executed when state changes from false to true
+var special_keys = [{
+	code: 38,
+	pressed: false,
+	func: function() {
+	}
+}, {
+	code: 40,
+	pressed: false,
+	func: function() {
+	}
+}, {
+	code: 37,
+	pressed: false,
+	func: function() {
+	}
+}, {
+	code: 39,
+	pressed: false,
+	func: function() {
+	}
+}, {
+	code: 16,
+	pressed: false,
+	func: function() {
+	}
+}, {
+	code: 13,
+	pressed: false,
+	func: function() {
+		publish();
+	}
+}, {
+	code: 9,
+	pressed: false,
+	func: function() {
+		if (special_keys[key_i.shift].pressed) {
+			feed_monkeys(selected_banana, 1);
+		}
+		else {
+			buy_banana();
+		}
+	}
+}];
 var enter = false;
 var time_previous = 0;
 for (var i = 0; i < char_codes.length; i++) {
@@ -33,6 +90,7 @@ var banana_types = [ {
 	ripe_time: 30,
 	ripe: 1,
 	count: 0,
+	fridge: 0,
 	cost: 0.19
 }, {
 	name: "Regular Banana",
@@ -41,6 +99,7 @@ var banana_types = [ {
 	ripe_time: 120,
 	ripe: 2,
 	count: 0,
+	fridge: 0,
 	cost: 0.19
 }, {
 	name: "Rotten Banana",
@@ -49,6 +108,7 @@ var banana_types = [ {
 	ripe_time: 60,
 	ripe: 3,
 	count: 0,
+	fridge: 0,
 	cost: 0.19
 }, {
 	name: "Fertilizer Banana",
@@ -57,6 +117,7 @@ var banana_types = [ {
 	ripe_time: -1,
 	ripe: -1,
 	count: 0,
+	fridge: 0,
 	cost: 0.19
 }
 ];
@@ -367,6 +428,20 @@ function remove_banana(i) {
 	banana_tr.innerHTML = "";
 }
 
+function fridge_banana(i) {
+	if (banana_types[i].count > 0) {
+		banana_types[i].count--;
+		banana_types[i].fridge++;
+	}
+}
+
+function defridge_banana(i) {
+	if (banana_types[i].fridge > 0) {
+		banana_types[i].fridge--;
+		banana_types[i].count++;
+	}
+}
+
 function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
 	document.getElementById("stream").innerHTML = stream;
@@ -481,10 +556,6 @@ function buy_banana() {
 	buy_banana_type(0, 1);
 }
 
-function feed_monkey() {
-	feed_monkeys(1, 1);
-}
-
 function monkey_metabolism() {
 	var date = new Date();
 	var time = date.getTime();
@@ -495,6 +566,7 @@ function monkey_metabolism() {
 	time_previous = time;
 	var char_previous = Math.floor(characters);
 	var i;
+	var banana_inventory = [];
 	for (i = 0; i < banana_types.length; i++) {
 		if (banana_types[i].count < 1) {
 			continue;
@@ -508,6 +580,23 @@ function monkey_metabolism() {
 				banana_types[i].count = 0;
 				banana_types[i].ripe_time = banana_types[i].ripe_time_max;
 			}
+		}
+		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
+			banana_inventory.push(i);
+		}
+	}
+	if (banana_inventory.indexOf(selected_banana) == -1) {
+		if (banana_inventory.length > 0) {
+			var closest = 0;
+			var shortest_distance = banana_types.length;
+			for (i = 0; i < banana_inventory.length; i++) {
+				var distance = Math.abs(selected_banana - banana_inventory[i]);
+				if (distance < shortest_distance) {
+					closest = i;
+					shortest_distance = distance;
+				}
+			}
+			selected_banana = closest;
 		}
 	}
 	for (i = 0; i < monkey_types.length; i++) {
@@ -591,45 +680,31 @@ window.onload = function () {
 				pressed[i] = false;
 			}
 		}
-		if (key == 13) {
-			enter = false;
-		}
-		if (key == 16) {
-			shift = false;
-		}
-		if (key == 9) {
-			tab = false;
+		for (var k = 0; k < special_keys.length; k++) {
+			if ((i == special_keys[k].code) && (special_keys[k].pressed)) {
+				special_keys[k].pressed = false;
+			}
 		}
 	}
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
-		if (key == 16) {
-			shift = true;
-		}
-		if ((key == 13) && (!enter)) {
-			enter = true;
-			publish();
-		}
 		if (key == 9) {
 			if (e.preventDefault) {
 				e.preventDefault();
 			}
-			if (!tab) {
-				tab = true;
-				if (shift) {
-					feed_monkey();
-				}
-				else {
-					buy_banana();
-				}
+		}
+		for (var k = 0; k < special_keys.length; k++) {
+			if ((i == special_keys[k].code) && (!special_keys[k].pressed)) {
+				special_keys[k].pressed = true;
+				special_keys[k].func();
 			}
 		}
 		else if (i != -1) {
 			if (!pressed[i]) {
 				pressed[i] = true;
 				var char = char_list[i];
-				if (shift) {
+				if (special_keys[key_i.shift].pressed) {
 					char = char.toUpperCase();
 				}
 				keyboard_type(char);
