@@ -96,7 +96,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
-			defridge_banana();
+			defridge_banana(selected_banana);
 		}
 	}
 }, {
@@ -104,7 +104,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
-			fridge_banana();
+			fridge_banana(selected_banana);
 		}
 	}
 }, {
