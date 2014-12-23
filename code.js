@@ -486,6 +486,14 @@ function add_banana(i) {
 	td3.appendChild(ripe_time_span);
 	td3.innerHTML += "s until ripe";
 	banana_tr.appendChild(td3);
+	var td4 = document.createElement("td");
+	td4.setAttribute("style", "border: 1px solid black");
+	var fridge_span = document.createElement("span");
+	fridge_span.setAttribute("id", banana_types[i].id + "-fridge");
+	fridge_span.innerHTML = banana_types[i].fridge.toString();
+	td4.appendChild(fridge_span);
+	td4.innerHTML = " in fridge";
+	banana_tr.appendChild(td4);
 }
 
 function remove_banana(i) {
