@@ -15,7 +15,10 @@ function check_bananas() {
 	var previous_banana_inventory = banana_inventory;
 	banana_inventory = [];
 	if (selected_banana > -1) {
-		document.getElementById(banana_types[selected_banana].id + "-name").removeAttribute("class");
+		var element = document.getElementById(banana_types[selected_banana].id + "-name");
+		if (element != null) {
+			element.removeAttribute("class");
+		}
 	}
 	for (var i = 0; i < banana_types.length; i++) {
 		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
@@ -32,7 +35,12 @@ function check_bananas() {
 	if (selected_i > -1) {
 		selected_banana = banana_inventory[selected_i];
 	}
-	document.getElementById(banana_types[selected_banana].id + "-name").setAttribute("class", "selected");
+	if (selected_banana > -1) {
+		var element = document.getElementById(banana_types[selected_banana].id + "-name");
+		if (element != null) {
+			element.setAttribute("class", "selected");
+		}
+	}
 }
 
 // A map to special_keys
