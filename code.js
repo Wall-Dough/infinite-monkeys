@@ -214,6 +214,9 @@ function feed_monkeys(type, amount) {
 			}
 			monkey_types[i].hungry -= to_feed;
 			banana_types[type].count -= to_feed;
+			if (banana_types[i].count == 0) {
+				banana_types[i].ripe_time = banana_types[i].ripe_time_max;
+			}
 			if (amount < 1) {
 				update_stats();
 				return;
@@ -239,6 +242,9 @@ function feed_monkeys(type, amount) {
 				monkey_types[monkey_types[i].happy].count += to_feed;
 				banana_types[type].count -= to_feed;
 			}
+		}
+		if (banana_types[i].count == 0) {
+			banana_types[i].ripe_time = banana_types[i].ripe_time_max;
 		}
 		if (amount < 1) {
 			update_stats();
@@ -506,6 +512,9 @@ function fridge_banana(i) {
 	if (banana_types[i].count > 0) {
 		banana_types[i].count--;
 		banana_types[i].fridge++;
+	}
+	if (banana_types[i].count == 0) {
+		banana_types[i].ripe_time = banana_types[i].ripe_time_max;
 	}
 }
 
