@@ -492,7 +492,7 @@ function add_banana(i) {
 	fridge_span.setAttribute("id", banana_types[i].id + "-fridge");
 	fridge_span.innerHTML = banana_types[i].fridge.toString();
 	td4.appendChild(fridge_span);
-	td4.innerHTML = " in fridge";
+	td4.innerHTML += " in fridge";
 	banana_tr.appendChild(td4);
 }
 
