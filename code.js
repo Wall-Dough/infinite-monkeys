@@ -95,17 +95,22 @@ var special_keys = [{
 	code: 37,
 	pressed: false,
 	func: function() {
+		if (special_keys[key_i.shift].pressed) {
+			defridge_banana();
+		}
 	}
 }, {
 	code: 39,
 	pressed: false,
 	func: function() {
+		if (special_keys[key_i.shift].pressed) {
+			fridge_banana();
+		}
 	}
 }, {
 	code: 16,
 	pressed: false,
 	func: function() {
-		console.log("SHIFT");
 	}
 }, {
 	code: 13,
@@ -119,7 +124,6 @@ var special_keys = [{
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
 			feed_monkeys(selected_banana, 1);
-			console.log("SHIFT+TAB");
 		}
 		else {
 			buy_banana();
