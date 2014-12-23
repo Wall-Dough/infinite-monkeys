@@ -14,7 +14,9 @@ var banana_inventory = [];
 function check_bananas() {
 	var previous_banana_inventory = banana_inventory;
 	banana_inventory = [];
-	document.getElementById(banana_types[selected_banana].id + "-name").removeAttribute("class");
+	if (selected_banana > -1) {
+		document.getElementById(banana_types[selected_banana].id + "-name").removeAttribute("class");
+	}
 	for (var i = 0; i < banana_types.length; i++) {
 		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
 			banana_inventory.push(i);
