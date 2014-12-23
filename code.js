@@ -681,7 +681,7 @@ window.onload = function () {
 			}
 		}
 		for (var k = 0; k < special_keys.length; k++) {
-			if ((i == special_keys[k].code) && (special_keys[k].pressed)) {
+			if ((key == special_keys[k].code) && (special_keys[k].pressed)) {
 				special_keys[k].pressed = false;
 			}
 		}
