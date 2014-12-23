@@ -260,6 +260,9 @@ function feed_monkeys(type, amount) {
 		banana_types[type].count -= amount;
 		break;
 	}
+	if (banana_types[type].count == 0) {
+		banana_types[type].ripe_time = banana_types[type].ripe_time_max;
+	}
 	update_stats();
 }
 
