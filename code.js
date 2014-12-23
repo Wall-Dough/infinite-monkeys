@@ -9,6 +9,28 @@ var selected_banana = 0;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
 var pressed = [];
+var banana_inventory = [];
+
+function check_bananas() {
+	var previous_banana_inventory = banana_inventory;
+	banana_inventory = [];
+	for (var i = 0; i < banana_types.length; i++) {
+		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
+			banana_inventory.push(i);
+		}
+	}
+	var selected_i = previous_banana_inventory.indexOf(selected_banana);
+	if (selected_i == -1) {
+		selected_i = 0;
+	}
+	if (selected_i >= banana_inventory.length) {
+		selected_i = banana_inventory.length - 1;
+	}
+	if (selected_i > -1) {
+		selected_banana = banana_inventory[selected_i];
+	}
+}
+
 // A map to special_keys
 var key_i = {
 	up: 0,
@@ -19,6 +41,7 @@ var key_i = {
 	enter: 5,
 	tab: 6
 };
+
 // An easy way to handle important key presses
 // Can loop through array and check for press at each element
 // Function is executed when state changes from false to true
@@ -26,11 +49,23 @@ var special_keys = [{
 	code: 38,
 	pressed: false,
 	func: function() {
+		check_bananas();
+		var selected_i = banana_inventory.indexOf();
+		if (selected_i > 0) {
+			selected_i--;
+			selected_banana = banana_inventory[selected_i];
+		}
 	}
 }, {
 	code: 40,
 	pressed: false,
 	func: function() {
+		check_bananas();
+		var selected_i = banana_inventory.indexOf();
+		selected_i++;
+		if (selected_i < banana_inventory.length) {
+			selected_banana = banana_inventory[selected_i];
+		}
 	}
 }, {
 	code: 37,
@@ -583,24 +618,8 @@ function monkey_metabolism() {
 				banana_types[i].ripe_time = banana_types[i].ripe_time_max;
 			}
 		}
-		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
-			banana_inventory.push(i);
-		}
 	}
-	if (banana_inventory.indexOf(selected_banana) == -1) {
-		if (banana_inventory.length > 0) {
-			var closest = 0;
-			var shortest_distance = banana_types.length;
-			for (i = 0; i < banana_inventory.length; i++) {
-				var distance = Math.abs(selected_banana - banana_inventory[i]);
-				if (distance < shortest_distance) {
-					closest = i;
-					shortest_distance = distance;
-				}
-			}
-			selected_banana = closest;
-		}
-	}
+	check_bananas();
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count < 1) {
 			continue;
