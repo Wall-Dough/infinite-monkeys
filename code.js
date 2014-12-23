@@ -46,6 +46,7 @@ var special_keys = [{
 	code: 16,
 	pressed: false,
 	func: function() {
+		console.log("SHIFT");
 	}
 }, {
 	code: 13,
