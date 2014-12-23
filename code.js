@@ -522,13 +522,14 @@ function update_stats() {
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	var i;
 	for (i = 0; i < banana_types.length; i++) {
-		if (banana_types[i].count > 0) {
+		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
 			var banana_tr = document.getElementById(banana_types[i].id);
 			if (banana_tr.innerHTML === "") {
 				add_banana(i);
 			}
 			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
 			document.getElementById(banana_types[i].id + "-ripe-time").innerHTML = Math.floor(banana_types[i].ripe_time).toString();
+			document.getElementById(banana_types[i].id + "-fridge").innerHTML = banana_types[i].fridge.toString();
 		}
 		else {
 			remove_banana(i);
