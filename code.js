@@ -14,6 +14,7 @@ var banana_inventory = [];
 function check_bananas() {
 	var previous_banana_inventory = banana_inventory;
 	banana_inventory = [];
+	document.getElementById(banana_types[selected_banana].id + "-name").removeAttribute("class");
 	for (var i = 0; i < banana_types.length; i++) {
 		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
 			banana_inventory.push(i);
@@ -29,6 +30,7 @@ function check_bananas() {
 	if (selected_i > -1) {
 		selected_banana = banana_inventory[selected_i];
 	}
+	document.getElementById(banana_types[selected_banana].id + "-name").setAttribute("class", "selected");
 }
 
 // A map to special_keys
@@ -439,6 +441,7 @@ function add_banana(i) {
 	var banana_tr = document.getElementById(banana_types[i].id);
 	var td1 = document.createElement("td");
 	td1.setAttribute("style", "border: 1px solid black");
+	td1.setAttribute("id", banana_types[i].id + "-name");
 	td1.innerHTML = banana_types[i].name;
 	banana_tr.appendChild(td1);
 	var td2 = document.createElement("td");
