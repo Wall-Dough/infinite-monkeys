@@ -60,6 +60,7 @@ var special_keys = [{
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
 			feed_monkeys(selected_banana, 1);
+			console.log("SHIFT+TAB");
 		}
 		else {
 			buy_banana();
