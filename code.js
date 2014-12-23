@@ -11,15 +11,27 @@ var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80
 var pressed = [];
 var banana_inventory = [];
 
-function check_bananas() {
-	var previous_banana_inventory = banana_inventory;
-	banana_inventory = [];
+function deselect_banana() {
 	if (selected_banana > -1) {
 		var element = document.getElementById(banana_types[selected_banana].id + "-name");
 		if (element != null) {
 			element.removeAttribute("class");
 		}
 	}
+}
+
+function select_banana() {
+	if (selected_banana > -1) {
+		var element = document.getElementById(banana_types[selected_banana].id + "-name");
+		if (element != null) {
+			element.setAttribute("class", "selected");
+		}
+	}
+}
+
+function check_bananas() {
+	var previous_banana_inventory = banana_inventory;
+	banana_inventory = [];
 	for (var i = 0; i < banana_types.length; i++) {
 		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
 			banana_inventory.push(i);
@@ -33,13 +45,9 @@ function check_bananas() {
 		selected_i = banana_inventory.length - 1;
 	}
 	if (selected_i > -1) {
+		deselect_banana();
 		selected_banana = banana_inventory[selected_i];
-	}
-	if (selected_banana > -1) {
-		var element = document.getElementById(banana_types[selected_banana].id + "-name");
-		if (element != null) {
-			element.setAttribute("class", "selected");
-		}
+		select_banana();
 	}
 }
 
@@ -65,7 +73,9 @@ var special_keys = [{
 		var selected_i = banana_inventory.indexOf(selected_banana);
 		if (selected_i > 0) {
 			selected_i--;
+			deselect_banana();
 			selected_banana = banana_inventory[selected_i];
+			select_banana();
 		}
 	}
 }, {
@@ -76,7 +86,9 @@ var special_keys = [{
 		var selected_i = banana_inventory.indexOf(selected_banana);
 		selected_i++;
 		if (selected_i < banana_inventory.length) {
+			deselect_banana();
 			selected_banana = banana_inventory[selected_i];
+			select_banana();
 		}
 	}
 }, {
