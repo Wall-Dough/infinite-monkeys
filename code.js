@@ -700,7 +700,7 @@ window.onload = function () {
 				special_keys[k].func();
 			}
 		}
-		else if (i != -1) {
+		if (i != -1) {
 			if (!pressed[i]) {
 				pressed[i] = true;
 				var char = char_list[i];
