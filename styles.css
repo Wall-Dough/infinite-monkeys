@@ -33,3 +33,7 @@ body {
     height: 100%;
     background-color: sandybrown;
 }
+
+.selected {
+    text-decoration: underline;
+}
