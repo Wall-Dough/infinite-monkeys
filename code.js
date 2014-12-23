@@ -62,7 +62,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		check_bananas();
-		var selected_i = banana_inventory.indexOf();
+		var selected_i = banana_inventory.indexOf(selected_banana);
 		if (selected_i > 0) {
 			selected_i--;
 			selected_banana = banana_inventory[selected_i];
@@ -73,7 +73,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		check_bananas();
-		var selected_i = banana_inventory.indexOf();
+		var selected_i = banana_inventory.indexOf(selected_banana);
 		selected_i++;
 		if (selected_i < banana_inventory.length) {
 			selected_banana = banana_inventory[selected_i];
