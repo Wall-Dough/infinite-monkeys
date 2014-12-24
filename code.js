@@ -6,8 +6,8 @@ var speed_target = 0.1;
 var stream = "";
 var stream_max = 50;
 var selected_banana = 0;
-var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", ",", ".", "\"", "'", "?"];
-var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 49, 188, 190, 222, 219, 191];
+var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", ",", ".", "\"", "'", "?", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ")", "!", "@", "#", "$", "%", "^", "&", "*", "("];
+var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 188, 190, 222, 219, 191, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
 var pressed = [];
 var banana_inventory = [];
 
@@ -776,7 +776,12 @@ window.onload = function () {
 				pressed[i] = true;
 				var char = char_list[i];
 				if (special_keys[key_i.shift].pressed) {
-					char = char.toUpperCase();
+					if (i >= char_list.indexOf(48)) {
+						char = char_list[i + 10];
+					}
+					else {
+						char = char.toUpperCase();
+					}
 				}
 				keyboard_type(char);
 			}
