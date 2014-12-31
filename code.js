@@ -396,7 +396,7 @@ function add_monkey(i) {
 	var table = document.createElement("table");
 	table.setAttribute("border", "1");
 	table.setAttribute("id", monkey_types[i].id + "-table");
-	var thead = document.createElement("thead");
+	var tbody = document.createElement("tbody");
 	var tr_head = document.createElement("tr");
 	var td_icon = document.createElement("td");
 	td_icon.setAttribute("rowspan", "3");
@@ -414,10 +414,7 @@ function add_monkey(i) {
 	td_type_rate.appendChild(span_type_rate);
 	td_type_rate.innerHTML += " characters per monkey per second)";
 	tr_head.appendChild(td_type_rate);
-	thead.appendChild(tr_head);
-	table.appendChild(thead);
-	
-	var tbody = document.createElement("tbody");
+	tbody.appendChild(tr_head);
 	
 	var tr1_body = document.createElement("tr");
 	var td1_tr1 = document.createElement("td");
