@@ -398,6 +398,10 @@ function add_monkey(i) {
 	table.setAttribute("id", monkey_types[i].id + "-table");
 	var thead = document.createElement("thead");
 	var tr_head = document.createElement("tr");
+	var td_icon = document.createElement("td");
+	td_icon.setAttribute("rowspan", "3");
+	td_icon.innerHTML = monkey_types[i].icon;
+	tr_head.appendChild(td_icon);
 	var td_name = document.createElement("td");
 	td_name.setAttribute("colspan", "2");
 	td_name.innerHTML = monkey_types[i].name;
