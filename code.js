@@ -10,6 +10,7 @@ var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 188, 190, 222, 219, 191, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
 var pressed = [];
 var banana_inventory = [];
+var total_bananas = 0;
 
 function deselect_banana() {
 	if (selected_banana > -1) {
@@ -535,6 +536,7 @@ function update_stats() {
 	document.getElementById("characters-value").innerHTML = Math.floor(characters);
 	document.getElementById("stream").innerHTML = stream;
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
+	document.getElementById("bananas-value").innerHTML = total_bananas;
 	var i;
 	for (i = 0; i < banana_types.length; i++) {
 		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
@@ -639,6 +641,7 @@ function buy_banana_type(type, amount) {
 	}
 	money -= (banana_types[type].cost * amount);
 	banana_types[type].count += amount;
+	total_bananas += amount;
 	update_stats();
 }
 
