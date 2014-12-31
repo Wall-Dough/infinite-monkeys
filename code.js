@@ -270,6 +270,7 @@ function feed_monkeys(type, amount) {
 var monkey_types = [{
 	name: "Angry Monkeys",
 	id: "angry",
+	icon: "\<Ờ Ṓ\><br />&nbsp;(^)",
 	count: 0,
 	hungry: 0,
 	busy: 0,
@@ -290,6 +291,7 @@ var monkey_types = [{
 }, {
 	name: "Happy Monkeys",
 	id: "happy",
+	icon: "\<^ ^\><br />&nbsp;(v)",
 	count: 0,
 	hungry: 0,
 	busy: 0,
