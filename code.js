@@ -697,7 +697,7 @@ function update_stats() {
 			for (var i = 0; i < corms.length; i++) {
 				var corm_tr = document.createElement("tr");
 				corm_tr.setAttribute("id", corms[i].id);
-				banana_table.appendChild(banana_type_tr);
+				banana_table.appendChild(corm_tr);
 			}
 			if (old_tab_view == 0) {
 				deselect_element(document.getElementById("banana-view"));
