@@ -15,21 +15,27 @@ var tab_view = 0;
 var old_tab_view = -1;
 var items;
 
+function deselect_element(element) {
+	if (element != null) {
+		element.removeAttribute("class");
+	}
+}
+
+function select_element(element) {
+	if (element != null) {
+		element.setAttribute("class", "selected");
+	}
+}
+
 function deselect_item() {
 	if (selected > -1) {
-		var element = document.getElementById(items[selected].id + "-name");
-		if (element != null) {
-			element.removeAttribute("class");
-		}
+		deselect_element(document.getElementById(items[selected].id + "-name"));
 	}
 }
 
 function select_item() {
 	if (selected > -1) {
-		var element = document.getElementById(items[selected].id + "-name");
-		if (element != null) {
-			element.setAttribute("class", "selected");
-		}
+		select_element(document.getElementById(items[selected].id + "-name"));
 	}
 }
 
@@ -55,9 +61,9 @@ function check_inventory() {
 		selected_i = inventory.length - 1;
 	}
 	if (selected_i > -1) {
-		deselect_item(items);
+		deselect_item();
 		selected = inventory[selected_i];
-		select_item(items);
+		select_item();
 	}
 }
 
@@ -609,6 +615,10 @@ function update_stats() {
 				banana_type_tr.setAttribute("id", banana_types[i].id);
 				banana_table.appendChild(banana_type_tr);
 			}
+			if (old_tab_view == 1) {
+				deselect_element(document.getElementById("corm-view"));
+			}
+			select_element(document.getElementById("banana-view"));
 			old_tab_view = 0;
 		}
 		for (i = 0; i < banana_types.length; i++) {
@@ -635,6 +645,10 @@ function update_stats() {
 				corm_tr.setAttribute("id", corms[i].id);
 				banana_table.appendChild(banana_type_tr);
 			}
+			if (old_tab_view == 0) {
+				deselect_element(document.getElementById("banana-view"));
+			}
+			select_element(document.getElementById("corm-view"));
 			old_tab_view = 1;
 		}
 		for (i = 0; i < corms.length; i++) {
