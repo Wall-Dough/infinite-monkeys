@@ -237,6 +237,7 @@ var banana_types = [ {
 
 var corms = [ {
 	name: "Regular",
+	id: "regular",
 	planted: 0,
 	grow_time_max: 100,
 	grow_time: 0,
