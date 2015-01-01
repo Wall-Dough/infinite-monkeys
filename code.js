@@ -691,7 +691,7 @@ function update_stats() {
 		}
 	}
 	if (tab_view == 1) {
-		if (tab_view != 1) {
+		if (old_tab_view != 1) {
 			var banana_table = document.getElementById("banana-table");
 			banana_table.innerHTML = "";
 			for (var i = 0; i < corms.length; i++) {
