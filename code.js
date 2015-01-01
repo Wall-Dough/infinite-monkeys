@@ -956,7 +956,7 @@ window.onload = function () {
 				pressed[i] = true;
 				var char = char_list[i];
 				if (special_keys[key_i.shift].pressed) {
-					if (i >= char_list.indexOf(48)) {
+					if (i >= char_codes.indexOf(48)) {
 						char = char_list[i + 10];
 					}
 					else {
