@@ -558,20 +558,39 @@ function remove_banana(i) {
 	banana_tr.innerHTML = "";
 }
 
-function fridge_banana(i) {
-	if (banana_types[i].count > 0) {
-		banana_types[i].count--;
-		banana_types[i].fridge++;
+function shift_item(i) {
+	if (tab_view == 0) {
+		if (banana_types[i].count > 0) {
+			banana_types[i].count--;
+			banana_types[i].fridge++;
+		}
+		if (banana_types[i].count == 0) {
+			banana_types[i].ripe_time = banana_types[i].ripe_time_max;
+		}
 	}
-	if (banana_types[i].count == 0) {
-		banana_types[i].ripe_time = banana_types[i].ripe_time_max;
+	else if (tab_view == 1) {
+		if (corms[i].count > 0) {
+			corms[i].count--;
+			corms[i].planted++;
+		}
+		if (corms[i].count == 0) {
+			corms[i].grow_time = 0;
+		}
 	}
 }
 
-function defridge_banana(i) {
-	if (banana_types[i].fridge > 0) {
-		banana_types[i].fridge--;
-		banana_types[i].count++;
+function deshift_item(i) {
+	if (tab_view == 0) {
+		if (banana_types[i].fridge > 0) {
+			banana_types[i].fridge--;
+			banana_types[i].count++;
+		}
+	}
+	else if (tab_view == 1) {
+		if (corms[i].planted > 0) {
+			corms[i].planted--;
+			corms[i].count++;
+		}
 	}
 }
 
