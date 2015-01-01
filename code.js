@@ -940,7 +940,7 @@ window.onload = function () {
 	window.onkeydown = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
 		var i = char_codes.indexOf(key);
-		if ((key == 9) || ((key <= 40) && (key >= 37))) {
+		if ((key == 8) || (key == 9) || ((key <= 40) && (key >= 37))) {
 			if (e.preventDefault) {
 				e.preventDefault();
 			}
