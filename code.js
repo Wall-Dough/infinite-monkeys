@@ -81,7 +81,8 @@ var key_i = {
 	right: 3,
 	shift: 4,
 	enter: 5,
-	tab: 6
+	tab: 6,
+	backspace: 7
 };
 
 // An easy way to handle important key presses
@@ -164,6 +165,12 @@ var special_keys = [{
 				buy_banana();
 			}
 		}
+	}
+}, {
+	code: 8,
+	pressed: false,
+	func: function() {
+		delete_characters(1);
 	}
 }];
 var enter = false;
@@ -774,6 +781,21 @@ function add_to_stream(num_chars) {
 	}
 	if (stream.length > stream_max) {
 		stream = stream.substring(stream.length - stream_max);
+	}
+}
+
+function delete_characters(num_chars) {
+	if (num_chars < 1) {
+		return;
+	}
+	if ((characters - num_chars) >= 0) {
+		characters -= num_chars;
+		if (num_chars < stream.length) {
+			stream = stream.substring(0, stream.length - num_chars);
+		}
+		else {
+			stream = "";
+		}
 	}
 }
 
