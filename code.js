@@ -14,6 +14,7 @@ var total_bananas = 0;
 var tab_view = 0;
 var old_tab_view = -1;
 var items;
+var num_tabs = 2;
 
 function deselect_element(element) {
 	if (element != null) {
@@ -119,6 +120,11 @@ var special_keys = [{
 		if (special_keys[key_i.shift].pressed) {
 			deshift_item(selected);
 		}
+		else {
+			if (tab_view > 0) {
+				tab_view--;
+			}
+		}
 	}
 }, {
 	code: 39,
@@ -126,6 +132,11 @@ var special_keys = [{
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
 			shift_item(selected);
+		}
+		else {
+			if (tab_view < (num_tabs - 1)) {
+				tab_view++;
+			}
 		}
 	}
 }, {
