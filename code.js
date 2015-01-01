@@ -768,7 +768,7 @@ function monkey_metabolism() {
 			}
 		}
 	}
-	check_bananas();
+	check_inventory();
 	for (i = 0; i < monkey_types.length; i++) {
 		if (monkey_types[i].count < 1) {
 			continue;
