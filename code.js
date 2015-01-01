@@ -245,6 +245,9 @@ var corms = [ {
 	fruits: 10,
 	amount: function() {
 		return this.count + this.planted;
+	},
+	get_time: function() {
+		return Math.floor((this.grow_time_max / this.planted) - this.grow_time);
 	}
 } ];
 
@@ -569,10 +572,49 @@ function add_banana(i) {
 	banana_tr.appendChild(td4);
 }
 
+function add_corm(i) {
+	var corm_tr = document.getElementById(corms[i].id);
+	var td1 = document.createElement("td");
+	td1.setAttribute("style", "border: 1px solid black");
+	td1.setAttribute("id", corms[i].id + "-name");
+	td1.innerHTML = corms[i].name;
+	corm_tr.appendChild(td1);
+	var td2 = document.createElement("td");
+	td2.setAttribute("style", "border: 1px solid black");
+	td2.innerHTML = "x ";
+	var left_span = document.createElement("span");
+	left_span.setAttribute("id", corms[i].id + "-left");
+	left_span.innerHTML = corms[i].count.toString();
+	td2.appendChild(left_span);
+	corm_tr.appendChild(td2);
+	var td3 = document.createElement("td");
+	td3.setAttribute("style", "border: 1px solid black");
+	var time_span = document.createElement("span");
+	time_span.setAttribute("id", corms[i].id + "-time");
+	time_span.innerHTML = corms[i].get_time().toString();
+	td3.appendChild(time_span);
+	td3.innerHTML += "s until grown";
+	corm_tr.appendChild(td3);
+	var td4 = document.createElement("td");
+	td4.setAttribute("style", "border: 1px solid black");
+	var right_span = document.createElement("span");
+	right_span.setAttribute("id", corms[i].id + "-right");
+	right_span.innerHTML = corms[i].planted.toString();
+	td4.appendChild(right_span);
+	td4.innerHTML += " planted";
+	corm_tr.appendChild(td4);
+}
+
 function remove_banana(i) {
 	var banana_tr = document.getElementById(banana_types[i].id);
 	banana_tr.setAttribute("style", "");
 	banana_tr.innerHTML = "";
+}
+
+function remove_corm(i) {
+	var corm_tr = document.getElementById(corms[i].id);
+	corm_tr.setAttribute("style", "");
+	corm_tr.innerHTML = "";
 }
 
 function shift_item(i) {
