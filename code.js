@@ -188,6 +188,16 @@ var banana_types = [ {
 }
 ];
 
+var corms = [ {
+	name: "Regular",
+	planted: 0,
+	grow_time_max: 100,
+	grow_time: 0,
+	type: 0,
+	count: 0,
+	fruits: 10
+} ];
+
 var base_rate = Math.floor(banana_types[1].cost * character_worth * 1000) / 10;
 
 function feed_monkeys(type, amount) {
@@ -659,6 +669,18 @@ function monkey_metabolism() {
 	time_previous = time;
 	var char_previous = Math.floor(characters);
 	var i;
+	for (i = 0; i < corms.length; i++) {
+		if (corms[i].planted > 0) {
+			corms[i].grow_time += update_speed;
+			if (corms[i].grow_time > corms[i].grow_time_max) {
+				var grown = Math.floor(corms[i].grow_time / corms[i].grow_time_max * corms[i].planted);
+				corms[i].grow_time -= grown * corms[i].grow_time_max / corms[i].planted;
+				banana_types[corms[i].type].count += grown * corms[i].fruits;
+				corms[i].planted -= grown;
+				corms[i].count += Math.floor(grown * Math.random() * 4);
+			}
+		}
+	}
 	var banana_inventory = [];
 	for (i = 0; i < banana_types.length; i++) {
 		if (banana_types[i].count < 1) {
