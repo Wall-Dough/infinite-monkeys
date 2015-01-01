@@ -5,51 +5,65 @@ var update_speed = 0.1;
 var speed_target = 0.1;
 var stream = "";
 var stream_max = 50;
-var selected_banana = 0;
+var selected = 0;
 var char_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", ",", ".", "\"", "'", "?", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ")", "!", "@", "#", "$", "%", "^", "&", "*", "("];
 var char_codes = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 32, 188, 190, 222, 219, 191, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
 var pressed = [];
-var banana_inventory = [];
+var inventory = [];
 var total_bananas = 0;
+var tab_view = 0;
+var old_tab_view = -1;
+var items;
 
-function deselect_banana() {
-	if (selected_banana > -1) {
-		var element = document.getElementById(banana_types[selected_banana].id + "-name");
+function deselect_item() {
+	if (selected > -1) {
+		var element = document.getElementById(items[selected].id + "-name");
 		if (element != null) {
 			element.removeAttribute("class");
 		}
 	}
 }
 
-function select_banana() {
-	if (selected_banana > -1) {
-		var element = document.getElementById(banana_types[selected_banana].id + "-name");
+function select_item() {
+	if (selected > -1) {
+		var element = document.getElementById(items[selected].id + "-name");
 		if (element != null) {
 			element.setAttribute("class", "selected");
 		}
 	}
 }
 
-function check_bananas() {
-	var previous_banana_inventory = banana_inventory;
-	banana_inventory = [];
-	for (var i = 0; i < banana_types.length; i++) {
-		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
-			banana_inventory.push(i);
+function check_inventory() {
+	if (tab_view == 0) {
+		items = banana_types;
+	}
+	else if (tab_view == 1) {
+		items = corms;
+	}
+	var previous_inventory = inventory;
+	inventory = [];
+	for (var i = 0; i < items.length; i++) {
+		if (items[i].amount() > 0) {
+			inventory.push(i);
 		}
 	}
-	var selected_i = previous_banana_inventory.indexOf(selected_banana);
+	var selected_i = previous_inventory.indexOf(selected);
 	if (selected_i == -1) {
 		selected_i = 0;
 	}
-	if (selected_i >= banana_inventory.length) {
-		selected_i = banana_inventory.length - 1;
+	if (selected_i >= inventory.length) {
+		selected_i = inventory.length - 1;
 	}
 	if (selected_i > -1) {
-		deselect_banana();
-		selected_banana = banana_inventory[selected_i];
-		select_banana();
+		deselect_item(items);
+		selected = inventory[selected_i];
+		select_item(items);
 	}
+}
+
+function reset_inventory() {
+	inventory = [];
+	selected = 0;
 }
 
 // A map to special_keys
@@ -70,26 +84,26 @@ var special_keys = [{
 	code: 38,
 	pressed: false,
 	func: function() {
-		check_bananas();
-		var selected_i = banana_inventory.indexOf(selected_banana);
+		check_inventory();
+		var selected_i = inventory.indexOf(selected);
 		if (selected_i > 0) {
 			selected_i--;
-			deselect_banana();
-			selected_banana = banana_inventory[selected_i];
-			select_banana();
+			deselect_item();
+			selected = inventory[selected_i];
+			select_item();
 		}
 	}
 }, {
 	code: 40,
 	pressed: false,
 	func: function() {
-		check_bananas();
-		var selected_i = banana_inventory.indexOf(selected_banana);
+		check_inventory();
+		var selected_i = inventory.indexOf(selected);
 		selected_i++;
-		if (selected_i < banana_inventory.length) {
-			deselect_banana();
-			selected_banana = banana_inventory[selected_i];
-			select_banana();
+		if (selected_i < inventory.length) {
+			deselect_item();
+			selected = inventory[selected_i];
+			select_item();
 		}
 	}
 }, {
@@ -97,7 +111,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
-			defridge_banana(selected_banana);
+			deshift_item(selected);
 		}
 	}
 }, {
@@ -105,7 +119,7 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
-			fridge_banana(selected_banana);
+			shift_item(selected);
 		}
 	}
 }, {
@@ -124,10 +138,14 @@ var special_keys = [{
 	pressed: false,
 	func: function() {
 		if (special_keys[key_i.shift].pressed) {
-			feed_monkeys(selected_banana, 1);
+			if (tab_view == 0) {
+				feed_monkeys(selected, 1);
+			}
 		}
 		else {
-			buy_banana();
+			if (tab_view == 0) {
+				buy_banana();
+			}
 		}
 	}
 }];
@@ -157,7 +175,10 @@ var banana_types = [ {
 	ripe: 1,
 	count: 0,
 	fridge: 0,
-	cost: 0.19
+	cost: 0.19,
+	amount: function() {
+		return this.count + this.fridge;
+	}
 }, {
 	name: "Regular Banana",
 	id: "regular",
@@ -166,7 +187,10 @@ var banana_types = [ {
 	ripe: 2,
 	count: 0,
 	fridge: 0,
-	cost: 0.19
+	cost: 0.19,
+	amount: function() {
+		return this.count + this.fridge;
+	}
 }, {
 	name: "Rotten Banana",
 	id: "rotten",
@@ -175,7 +199,10 @@ var banana_types = [ {
 	ripe: 3,
 	count: 0,
 	fridge: 0,
-	cost: 0.19
+	cost: 0.19,
+	amount: function() {
+		return this.count + this.fridge;
+	}
 }, {
 	name: "Fertilizer Banana",
 	id: "fertilizer",
@@ -184,7 +211,10 @@ var banana_types = [ {
 	ripe: -1,
 	count: 0,
 	fridge: 0,
-	cost: 0.19
+	cost: 0.19,
+	amount: function() {
+		return this.count + this.fridge;
+	}
 }
 ];
 
@@ -195,7 +225,10 @@ var corms = [ {
 	grow_time: 0,
 	type: 0,
 	count: 0,
-	fruits: 10
+	fruits: 10,
+	amount: function() {
+		return this.count + this.planted;
+	}
 } ];
 
 var base_rate = Math.floor(banana_types[1].cost * character_worth * 1000) / 10;
@@ -497,14 +530,14 @@ function add_banana(i) {
 	td2.setAttribute("style", "border: 1px solid black");
 	td2.innerHTML = "x ";
 	var count_span = document.createElement("span");
-	count_span.setAttribute("id", banana_types[i].id + "-count");
+	count_span.setAttribute("id", banana_types[i].id + "-left");
 	count_span.innerHTML = banana_types[i].count.toString();
 	td2.appendChild(count_span);
 	banana_tr.appendChild(td2);
 	var td3 = document.createElement("td");
 	td3.setAttribute("style", "border: 1px solid black");
 	var ripe_time_span = document.createElement("span");
-	ripe_time_span.setAttribute("id", banana_types[i].id + "-ripe-time");
+	ripe_time_span.setAttribute("id", banana_types[i].id + "-time");
 	ripe_time_span.innerHTML = banana_types[i].ripe_time.toString();
 	td3.appendChild(ripe_time_span);
 	td3.innerHTML += "s until ripe";
@@ -512,7 +545,7 @@ function add_banana(i) {
 	var td4 = document.createElement("td");
 	td4.setAttribute("style", "border: 1px solid black");
 	var fridge_span = document.createElement("span");
-	fridge_span.setAttribute("id", banana_types[i].id + "-fridge");
+	fridge_span.setAttribute("id", banana_types[i].id + "-right");
 	fridge_span.innerHTML = banana_types[i].fridge.toString();
 	td4.appendChild(fridge_span);
 	td4.innerHTML += " in fridge";
@@ -548,18 +581,56 @@ function update_stats() {
 	document.getElementById("money-value").innerHTML = money.toFixed(2);
 	document.getElementById("bananas-value").innerHTML = total_bananas;
 	var i;
-	for (i = 0; i < banana_types.length; i++) {
-		if ((banana_types[i].count + banana_types[i].fridge) > 0) {
-			var banana_tr = document.getElementById(banana_types[i].id);
-			if (banana_tr.innerHTML === "") {
-				add_banana(i);
+	if (tab_view == 0) {
+		if (old_tab_view != 0) {
+			var banana_table = document.getElementById("banana-table");
+			banana_table.innerHTML = "";
+			for (var i = 0; i < banana_types.length; i++) {
+				var banana_type_tr = document.createElement("tr");
+				banana_type_tr.setAttribute("id", banana_types[i].id);
+				banana_table.appendChild(banana_type_tr);
 			}
-			document.getElementById(banana_types[i].id + "-count").innerHTML = banana_types[i].count.toString();
-			document.getElementById(banana_types[i].id + "-ripe-time").innerHTML = Math.floor(banana_types[i].ripe_time).toString();
-			document.getElementById(banana_types[i].id + "-fridge").innerHTML = banana_types[i].fridge.toString();
+			old_tab_view = 0;
 		}
-		else {
-			remove_banana(i);
+		for (i = 0; i < banana_types.length; i++) {
+			if ((banana_types[i].count + banana_types[i].fridge) > 0) {
+				var banana_tr = document.getElementById(banana_types[i].id);
+				if (banana_tr.innerHTML === "") {
+					add_banana(i);
+				}
+				document.getElementById(banana_types[i].id + "-left").innerHTML = banana_types[i].count.toString();
+				document.getElementById(banana_types[i].id + "-time").innerHTML = Math.floor(banana_types[i].ripe_time).toString();
+				document.getElementById(banana_types[i].id + "-right").innerHTML = banana_types[i].fridge.toString();
+			}
+			else {
+				remove_banana(i);
+			}
+		}
+	}
+	if (tab_view == 1) {
+		if (tab_view != 1) {
+			var banana_table = document.getElementById("banana-table");
+			banana_table.innerHTML = "";
+			for (var i = 0; i < corms.length; i++) {
+				var corm_tr = document.createElement("tr");
+				corm_tr.setAttribute("id", corms[i].id);
+				banana_table.appendChild(banana_type_tr);
+			}
+			old_tab_view = 1;
+		}
+		for (i = 0; i < corms.length; i++) {
+			if ((corms[i].count + corms[i].planted) > 0) {
+				var corm_tr = document.getElementById(corms[i].id);
+				if (corm_tr.innerHTML === "") {
+					add_corm(i);
+				}
+				document.getElementById(corms[i].id + "-left").innerHTML = corms[i].count.toString();
+				document.getElementById(corms[i].id + "-time").innerHTML = Math.floor((corms[i].grow_time_max / corms[i].planted) - corms[i].grow_time);
+				document.getElementById(corms[i].id + "-right").innerHTML = corms[i].planted.toString();
+			}
+			else {
+				remove_corm(i);
+			}
 		}
 	}
 	for (i = 0; i < monkey_types.length; i++) {
@@ -764,12 +835,6 @@ window.onload = function () {
 		var monkey_type_div = document.createElement("div");
 		monkey_type_div.setAttribute("id", monkey_types[i].id);
 		monkey_div.appendChild(monkey_type_div);
-	}
-	var banana_table = document.getElementById("banana-table");
-	for (var i = 0; i < banana_types.length; i++) {
-		var banana_type_tr = document.createElement("tr");
-		banana_type_tr.setAttribute("id", banana_types[i].id);
-		banana_table.appendChild(banana_type_tr);
 	}
 	window.onkeyup = function(e) {
 		var key = e.keyCode ? e.keyCode : e.which;
