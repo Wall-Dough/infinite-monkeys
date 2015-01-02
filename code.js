@@ -869,7 +869,7 @@ function monkey_metabolism() {
 	for (i = 0; i < corms.length; i++) {
 		if (corms[i].planted > 0) {
 			corms[i].grow_time += update_speed;
-			if (corms[i].grow_time > (corms[i].grow_time_max / corms[i].planted) {
+			if (corms[i].grow_time > (corms[i].grow_time_max / corms[i].planted)) {
 				var grown = Math.floor(corms[i].grow_time / corms[i].grow_time_max * corms[i].planted);
 				corms[i].grow_time -= grown * corms[i].grow_time_max / corms[i].planted;
 				banana_types[corms[i].type].count += grown * corms[i].fruits;
