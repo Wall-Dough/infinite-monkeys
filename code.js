@@ -164,6 +164,9 @@ var special_keys = [{
 			if (tab_view == 0) {
 				buy_banana();
 			}
+			else if (tab_view == 1) {
+				buy_corm();
+			}
 		}
 	}
 }, {
@@ -251,6 +254,7 @@ var corms = [ {
 	type: 0,
 	count: 0,
 	fruits: 10,
+	cost: 5,
 	amount: function() {
 		return this.count + this.planted;
 	},
@@ -825,6 +829,15 @@ function publish() {
 	update_stats();
 }
 
+function buy_corm_type(type, amount) {
+	if (money < (corms[type].cost * amount)) {
+		return;
+	}
+	money -= (corms[type].cost * amount);
+	corms[type].count += amount;
+	update_stats();
+}
+
 function buy_banana_type(type, amount) {
 	if (money < (banana_types[type].cost * amount)) {
 		return;
@@ -833,6 +846,10 @@ function buy_banana_type(type, amount) {
 	banana_types[type].count += amount;
 	total_bananas += amount;
 	update_stats();
+}
+
+function buy_corm() {
+	buy_corm_type(0, 1);
 }
 
 function buy_banana() {
