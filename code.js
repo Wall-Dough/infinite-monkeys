@@ -644,9 +644,6 @@ function shift_item(i) {
 			corms[i].count--;
 			corms[i].planted++;
 		}
-		if (corms[i].count == 0) {
-			corms[i].grow_time = 0;
-		}
 	}
 }
 
@@ -661,6 +658,9 @@ function deshift_item(i) {
 		if (corms[i].planted > 0) {
 			corms[i].planted--;
 			corms[i].count++;
+		}
+		if (corms[i].planted == 0) {
+			corms[i].grow_time = 0;
 		}
 	}
 }
