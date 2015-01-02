@@ -196,7 +196,7 @@ var banana_recipes = [
 //            => Add more bananas
 var banana_types = [ {
 	name: "Green Banana",
-	id: "green",
+	id: "green-banana",
 	ripe_time_max: 30,
 	ripe_time: 30,
 	ripe: 1,
@@ -205,10 +205,22 @@ var banana_types = [ {
 	cost: 0.19,
 	amount: function() {
 		return this.count + this.fridge;
+	},
+	left: function() {
+		return this.count;
+	},
+	right: function() {
+		return this.fridge;
+	},
+	time: function() {
+		return this.ripe_time;
+	},
+	use: function() {
+		
 	}
 }, {
 	name: "Regular Banana",
-	id: "regular",
+	id: "regular-banana",
 	ripe_time_max: 120,
 	ripe_time: 120,
 	ripe: 2,
@@ -217,10 +229,22 @@ var banana_types = [ {
 	cost: 0.19,
 	amount: function() {
 		return this.count + this.fridge;
+	},
+	left: function() {
+		return this.count;
+	},
+	right: function() {
+		return this.fridge;
+	},
+	time: function() {
+		return this.ripe_time;
+	},
+	use: function() {
+		
 	}
 }, {
 	name: "Rotten Banana",
-	id: "rotten",
+	id: "rotten-banana",
 	ripe_time_max: 60,
 	ripe_time: 60,
 	ripe: 3,
@@ -229,10 +253,22 @@ var banana_types = [ {
 	cost: 0.19,
 	amount: function() {
 		return this.count + this.fridge;
+	},
+	left: function() {
+		return this.count;
+	},
+	right: function() {
+		return this.fridge;
+	},
+	time: function() {
+		return this.ripe_time;
+	},
+	use: function() {
+		
 	}
 }, {
 	name: "Fertilizer Banana",
-	id: "fertilizer",
+	id: "fertilizer-banana",
 	ripe_time_max: -1,
 	ripe_time: -1,
 	ripe: -1,
@@ -241,13 +277,25 @@ var banana_types = [ {
 	cost: 0.19,
 	amount: function() {
 		return this.count + this.fridge;
+	},
+	left: function() {
+		return this.count;
+	},
+	right: function() {
+		return this.fridge;
+	},
+	time: function() {
+		return this.ripe_time;
+	},
+	use: function() {
+		
 	}
 }
 ];
 
 var corms = [ {
-	name: "Regular",
-	id: "regular",
+	name: "Regular Corm",
+	id: "regular-corm",
 	planted: 0,
 	grow_time_max: 100,
 	grow_time: 0,
@@ -258,8 +306,11 @@ var corms = [ {
 	amount: function() {
 		return this.count + this.planted;
 	},
-	get_time: function() {
-		return Math.floor((this.grow_time_max / this.planted) - this.grow_time);
+	time: function() {
+		return this.ripe_time;
+	},
+	use: function() {
+		
 	}
 } ];
 
