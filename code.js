@@ -654,7 +654,7 @@ function add_corm(i) {
 	td3.setAttribute("style", "border: 1px solid black");
 	var time_span = document.createElement("span");
 	time_span.setAttribute("id", corms[i].id + "-time");
-	time_span.innerHTML = corms[i].get_time().toString();
+	time_span.innerHTML = corms[i].time().toString();
 	td3.appendChild(time_span);
 	td3.innerHTML += "s until grown";
 	corm_tr.appendChild(td3);
