@@ -307,7 +307,7 @@ var corms = [ {
 		return this.count + this.planted;
 	},
 	time: function() {
-		return this.ripe_time;
+		return this.grow_time;
 	},
 	use: function() {
 		
