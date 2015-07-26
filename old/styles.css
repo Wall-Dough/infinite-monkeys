@@ -1,0 +1,39 @@
+body {
+    font-family: Courier;
+}
+
+#happy-timer-bar-box, #angry-timer-bar-box {
+    width: 100px;
+    height: 10px;
+}
+
+#happy-timer-bar, #angry-timer-bar {
+    height: 100%;
+}
+
+.green {
+    background-color: yellowgreen;
+}
+
+.yellow {
+    background-color: goldenrod;
+}
+
+.red {
+    background-color: firebrick;
+}
+
+#happy-hungry-bar-box, #angry-hungry-bar-box {
+    width: 100px;
+    height: 10px;
+    background-color: saddlebrown;
+}
+
+#happy-hungry-bar, #angry-hungry-bar {
+    height: 100%;
+    background-color: sandybrown;
+}
+
+.selected {
+    text-decoration: underline;
+}
